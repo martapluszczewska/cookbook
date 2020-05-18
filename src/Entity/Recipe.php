@@ -6,9 +6,7 @@
 namespace App\Entity;
 
 use DateTimeInterface;
-use App\Repository\RecipeRepository;
 use Doctrine\ORM\Mapping as ORM;
-use PHP_CodeSniffer\Tests\Core\File\testFECNExtendedClass;
 
 /**
  * Class Recipe.
@@ -20,6 +18,8 @@ class Recipe
 {
     /**
      * Primary key.
+     *
+     * @var int
      *
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -35,14 +35,6 @@ class Recipe
      * @ORM\Column(type="string", length=255)
      */
     private $title;
-
-    /**
-     * Description.
-     * @var string
-     *
-     * @ORM\Column(type="text")
-     */
-    private $description;
 
     /**
      * Created at.
@@ -90,28 +82,6 @@ class Recipe
     public function setTitle(string $title): self
     {
         $this->title = $title;
-
-        return $this;
-    }
-
-    /**
-     * Getter for Description.
-     *
-     * @return string|null Description
-     */
-    public function getDescription(): ?string
-    {
-        return $this->description;
-    }
-
-    /**
-     * Setter for Description.
-     *
-     * @param string $description Description
-     */
-    public function setDescription(string $description): self
-    {
-        $this->description = $description;
 
         return $this;
     }

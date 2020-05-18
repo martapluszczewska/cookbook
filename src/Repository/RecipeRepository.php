@@ -1,7 +1,4 @@
 <?php
-/**
- * Recipe repository.
- */
 
 namespace App\Repository;
 

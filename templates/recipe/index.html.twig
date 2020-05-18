@@ -6,25 +6,29 @@
 
 {% block body %}
     <h1>{{ 'title_recipe_list'|trans }}</h1>
-    {% if data is defined and data|length %}
+    {% if recipes is defined and recipes|length %}
         <table class="table table-striped">
             <thead>
             <tr>
                 <th>{{ 'label_id'|trans }}</th>
+                <th>{{ 'label_created_at'|trans }}</th>
+                <th>{{ 'label_updated_at'|trans }}</th>
                 <th>{{ 'label_title'|trans }}</th>
-                <th>{{ 'label_tags'|trans }}</th>
-                <th scope="col">
-                    {{ 'label_actions'|trans }}
-                </th>
+                <th>{{ 'label_actions'|trans }}</th>
             </tr>
             </thead>
             <tbody>
-            {% for item in data %}
+            {% for recipe in recipes %}
                 <tr>
-                    <td>{{ item.id }}</td>
-                    <td>{{ item.title }}</td>
-                    <td>{{ item.tags|join(', ') }}</td>
-                    <td>&nbsp;</td>
+                    <td>{{ recipe.id }}</td>
+                    <td>{{ recipe.createdAt|date('Y/m/d') }}</td>
+                    <td>{{ recipe.updatedAt|date('Y/m/d') }}</td>
+                    <td>{{ recipe.title }}</td>
+                    <td>
+                        <a href="{{ url('recipe_show', {id: recipe.id}) }}" title="{{ 'action_view'|trans }}">
+                            {{ 'action_view'|trans }}
+                        </a>
+                    </td>
                 </tr>
             {% endfor %}
             </tbody>
