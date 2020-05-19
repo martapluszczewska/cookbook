@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Class Recipe.
  *
- * @ORM\Entity(repositoryClass=RecipeRepository::class)
+ * @ORM\Entity(repositoryClass="App\Repository\RecipeRepository")
  * @ORM\Table(name="recipes")
  */
 class Recipe

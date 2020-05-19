@@ -7,8 +7,10 @@ namespace App\Controller;
 
 use App\Entity\Recipe;
 use App\Repository\RecipeRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -21,21 +23,28 @@ class RecipeController extends AbstractController
     /**
      * Index action.
      *
-     * @param \App\Repository\RecipeRepository $recipeRepository Recipe repository
+     * @param \Symfony\Component\HttpFoundation\Request $request        HTTP request
+     * @param \App\Repository\RecipeRepository            $recipeRepository Recipe repository
+     * @param \Knp\Component\Pager\PaginatorInterface   $paginator      Paginator
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
      * @Route(
      *     "/",
-     *     methods={"GET"},
      *     name="recipe_index",
      * )
      */
-    public function index(RecipeRepository $recipeRepository): Response
+    public function index(Request $request, RecipeRepository $recipeRepository, PaginatorInterface $paginator): Response
     {
+        $pagination = $paginator->paginate(
+            $recipeRepository->queryAll(),
+            $request->query->getInt('page', 1),
+            RecipeRepository::PAGINATOR_ITEMS_PER_PAGE
+        );
+
         return $this->render(
             'recipe/index.html.twig',
-            ['recipes' => $recipeRepository->findAll()]
+            ['pagination' => $pagination]
         );
     }
     /**
