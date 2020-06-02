@@ -8,9 +8,61 @@
         <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
     {% endblock %}
 </head>
-<body>
-<div class="container-fluid">
-    {% block body %}{% endblock %}
+<body class="bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand font-weight-bold" href="{{ path('recipe_index') }}">Książka kucharska</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto">
+            {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                <li class="nav-item">
+{#                    <a class="nav-link">Użytkownik {{ app.user.firstName }}</a>#}
+                </li>
+            {% endif %}
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url('recipe_index') }}">{{ 'title_recipe_list'|trans }}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url('category_index') }}">{{ 'title_category_list'|trans }}</a>
+            </li>
+            {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Witaj, user1</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url('app_logout') }}">{{ 'action_logout'|trans }}</a>
+                </li>
+{#                {{ 'title_recipe_details'|trans({'%title%': recipe.title|default('')}) }}#}
+
+            {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url('app_login') }}">{{ 'action_login'|trans }}</a>
+                </li>
+            {% endif %}
+        </ul>
+        <form class="form-inline my-2 my-lg-0 mr-sm-2 ml-sm-2">
+            <button class="btn">
+                <svg class="bi bi-search " width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"/>
+                    <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"/>
+                </svg>
+            </button>
+{#            <input class="form-control mr-sm-2 border-0 rounded-0" type="search" placeholder="Search" aria-label="Search">#}
+{#            <button class="btn btn-light my-2 my-sm-0 border-0 rounded-0" type="submit">Search</button>#}
+        </form>
+    </div>
+</nav>
+<header class="page-header text-center p-4">
+    <h1>CookBook</h1>
+{#    <img src="{{ asset('img/photo.jpg') }}" alt="cookbook" class="header" />#}
+</header>
+<div class="container-fluid py-3">
+    {% include 'default/_flash_messages.html.twig' %}
+    {% block body %}
+    {% endblock %}
 </div>
 {% block javascripts %}
     <script src="{{ asset('js/script.js') }}"></script>

@@ -6,17 +6,18 @@
 namespace App\DataFixtures;
 
 use App\Entity\Comment;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 
 /**
  * Class CommentFixtures.
  */
-class CommentFixtures extends AbstractBaseFixtures
+class CommentFixtures extends AbstractBaseFixtures implements DependentFixtureInterface
 {
     /**
      * Load data.
      *
-     * @param \Doctrine\Persistence\ObjectManager $manager Object manager
+     * @param \Doctrine\Persistence\ObjectManager $manager Persistence object manager
      */
     public function loadData(ObjectManager $manager): void
     {
@@ -31,5 +32,19 @@ class CommentFixtures extends AbstractBaseFixtures
         });
 
             $manager->flush();
+    }
+
+    /**
+     * This method must return an array of fixtures classes
+     * on which the implementing class depends on.
+     *
+     * @return array Array of dependencies
+     */
+    public function getDependencies(): array
+    {
+        return [
+            RecipeFixtures::class,
+            UserFixtures::class
+        ];
     }
 }

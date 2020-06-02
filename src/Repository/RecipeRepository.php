@@ -29,7 +29,7 @@ class RecipeRepository extends ServiceEntityRepository
      *
      * @constant int
      */
-    const PAGINATOR_ITEMS_PER_PAGE = 5;
+    const PAGINATOR_ITEMS_PER_PAGE = 3;
 
     /**
      * RecipeRepository constructor.
@@ -42,6 +42,34 @@ class RecipeRepository extends ServiceEntityRepository
     }
 
     /**
+     * Save record.
+     *
+     * @param \App\Entity\Recipe $recipe Recipe entity
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function save(Recipe $recipe): void
+    {
+        $this->_em->persist($recipe);
+        $this->_em->flush($recipe);
+    }
+
+    /**
+     * Delete record.
+     *
+     * @param \App\Entity\Recipe $recipe Recipe entity
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function delete(Recipe $recipe): void
+    {
+        $this->_em->remove($recipe);
+        $this->_em->flush($recipe);
+    }
+
+    /**
      * Query all records.
      *
      * @return \Doctrine\ORM\QueryBuilder Query builder
@@ -49,6 +77,8 @@ class RecipeRepository extends ServiceEntityRepository
     public function queryAll(): QueryBuilder
     {
         return $this->getOrCreateQueryBuilder()
+            ->select('recipe', 'category')
+            ->join('recipe.category', 'category')
             ->orderBy('recipe.updatedAt', 'DESC');
     }
 

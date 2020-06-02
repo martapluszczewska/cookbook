@@ -102,7 +102,10 @@ class Tag
      *
      * @var \Doctrine\Common\Collections\ArrayCollection|\App\Entity\Recipe[] Recipes
      *
-     * @ORM\ManyToMany(targetEntity="App\Entity\Recipe", mappedBy="recipes")
+     * @ORM\ManyToMany(
+     *     targetEntity="App\Entity\Recipe",
+     *     mappedBy="tags"
+     * )
      *
      * @Assert\Type(type="Doctrine\Common\Collections\ArrayCollection")
      */

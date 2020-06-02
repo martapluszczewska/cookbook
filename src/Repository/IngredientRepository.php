@@ -19,6 +19,34 @@ class IngredientRepository extends ServiceEntityRepository
         parent::__construct($registry, Ingredient::class);
     }
 
+    /**
+     * Save record.
+     *
+     * @param \App\Entity\Ingredient $recipe Ingredient entity
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function save(Ingredient $ingredient): void
+    {
+        $this->_em->persist($ingredient);
+        $this->_em->flush($ingredient);
+    }
+
+    /**
+     * Delete record.
+     *
+     * @param \App\Entity\Ingredient $recipe Ingredient entity
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function delete(Ingredient $ingredient): void
+    {
+        $this->_em->remove($ingredient);
+        $this->_em->flush($ingredient);
+    }
+
     // /**
     //  * @return Ingredient[] Returns an array of Ingredient objects
     //  */

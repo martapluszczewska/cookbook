@@ -6,8 +6,10 @@
 namespace App\Repository;
 
 use App\Entity\Comment;
+use App\Entity\Recipe;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\Query\Expr\Join;
 
 /**
  * Class CommentRepository.
@@ -27,6 +29,36 @@ class CommentRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Comment::class);
+    }
+
+    /**
+     * @param int $recipeId
+     * @return array
+     */
+    public function findForRecipe(int $recipeId): array
+    {
+        $qb = $this->createQueryBuilder('c')
+            ->select('c')
+            ->innerJoin('App\Entity\Recipe', 'a', Join::WITH, 'a = c.recipe')
+            ->andWhere('a.id = :recipeId')
+            ->setParameter('recipeId', $recipeId)
+            ->orderBy('c.createdAt', 'DESC')
+            ->getQuery()->getResult();
+        return $qb;
+    }
+
+    /**
+     * Save record.
+     *
+     * @param \App\Entity\Comment $comment Comment entity
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function save(Comment $comment): void
+    {
+        $this->_em->persist($comment);
+        $this->_em->flush($comment);
     }
 
     // /**

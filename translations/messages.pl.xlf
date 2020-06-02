@@ -24,11 +24,11 @@
             </trans-unit>
             <trans-unit id="message_empty_list">
                 <source>message_empty_list</source>
-                <target>Pusta lista.</target>
+                <target>Pusta lista!</target>
             </trans-unit>
             <trans-unit id="title_recipe_list">
                 <source>title_recipe_list</source>
-                <target>Lista przepisów</target>
+                <target>Przepisy</target>
             </trans-unit>
             <trans-unit id="label_created_at">
                 <source>label_created_at</source>
@@ -38,6 +38,10 @@
                 <source>label_updated_at</source>
                 <target>Data modyfikacji</target>
             </trans-unit>
+            <trans-unit id="label_category">
+                <source>label_category</source>
+                <target>Kategoria</target>
+            </trans-unit>
             <trans-unit id="action_view">
                 <source>action_view</source>
                 <target>Wyświetl przepis</target>
@@ -45,6 +49,10 @@
             <trans-unit id="title_recipe_details">
                 <source>title_recipe_details</source>
                 <target>Szczegóły przepisu</target>
+            </trans-unit>
+            <trans-unit id="title_recipe">
+                <source>title_recipe</source>
+                <target>%title%</target>
             </trans-unit>
             <trans-unit id="action_back_to_list">
                 <source>action_back_to_list</source>
@@ -54,6 +62,134 @@
                 <source>message_item_not_found</source>
                 <target>Nie znaleziono</target>
             </trans-unit>
+            <trans-unit id="title_category_list">
+                <source>title_category_list</source>
+                <target>Kategorie przepisów</target>
+            </trans-unit>
+            <trans-unit id="category_view">
+                <source>category_view</source>
+                <target>Wyświetl kategorię</target>
+            </trans-unit>
+            <trans-unit id="title_category_details">
+                <source>title_category_details</source>
+                <target>Szczegóły kategorii</target>
+            </trans-unit>
+            <trans-unit id="title_category">
+                <source>title_category</source>
+                <target>%title%</target>
+            </trans-unit>
+            <trans-unit id="title_category_create">
+                <source>title_category_create</source>
+                <target>Nowa kategoria</target>
+            </trans-unit>
+            <trans-unit id="title_category_delete">
+                <source>title_category_delete</source>
+                <target>Usuń kategorię</target>
+            </trans-unit>
+            <trans-unit id="title_category_edit">
+                <source>title_category_edit</source>
+                <target>Edytuj kategorię</target>
+            </trans-unit>
+            <trans-unit id="action_save">
+                <source>action_save</source>
+                <target>Zapisz</target>
+            </trans-unit>
+            <trans-unit id="action_create">
+                <source>action_create</source>
+                <target>Utwórz</target>
+            </trans-unit>
+            <trans-unit id="action_delete">
+                <source>action_delete</source>
+                <target>Usuń</target>
+            </trans-unit>
+            <trans-unit id="category_edit">
+                <source>category_edit</source>
+                <target>Edytuj kategorię</target>
+            </trans-unit>
+            <trans-unit id="category_delete">
+                <source>category_delete</source>
+                <target>Usuń kategorię</target>
+            </trans-unit>
+            <trans-unit id="message_updated_successfully">
+                <source>message_updated_successfully</source>
+                <target>Nazwa została zmieniona!</target>
+            </trans-unit>
+            <trans-unit id="message_created_successfully">
+                <source>message_created_successfully</source>
+                <target>Nazwa została dodana!</target>
+            </trans-unit>
+            <trans-unit id="message.deleted_successfully">
+                <source>message.deleted_successfully</source>
+                <target>Usunięto pomyślnie!</target>
+            </trans-unit>
+            <trans-unit id="message_form_error">
+                <source>message_form_error</source>
+                <target>Błąd formularza!</target>
+            </trans-unit>
+            <trans-unit id="title_recipe_create">
+                <source>title_recipe_create</source>
+                <target>Nowy przepis</target>
+            </trans-unit>
+            <trans-unit id="recipe_edit">
+                <source>recipe_edit</source>
+                <target>Edytuj przepis</target>
+            </trans-unit>
+            <trans-unit id="recipe_delete">
+                <source>recipe_delete</source>
+                <target>Usuń przepis</target>
+            </trans-unit>
+            <trans-unit id="message_deleted_successfully">
+                <source>message_deleted_successfully</source>
+                <target>Usunięto przepis!</target>
+            </trans-unit>
+            <trans-unit id="action_login">
+                <source>action_login</source>
+                <target>Zaloguj się</target>
+            </trans-unit>
+            <trans-unit id="action_logout">
+                <source>action_logout</source>
+                <target>Wyloguj się</target>
+            </trans-unit>
+            <trans-unit id="message_sign_in">
+                <source>message_sign_in</source>
+                <target>Zaloguj się</target>
+            </trans-unit>
+            <trans-unit id="password">
+                <source>password</source>
+                <target>Hasło</target>
+            </trans-unit>
+            <trans-unit id="comment_panel">
+                <source>comment_panel</source>
+                <target>Panel komentarzy</target>
+            </trans-unit>
+            <trans-unit id="comment_placeholder">
+                <source>comment_placeholder</source>
+                <target>wpisz komentarz...</target>
+            </trans-unit>
+            <trans-unit id="post">
+                <source>post</source>
+                <target>Skomentuj</target>
+            </trans-unit>
+            <trans-unit id="message.comment_created_successfully">
+                <source>message.comment_created_successfully</source>
+                <target>Utworzono komentarz!</target>
+            </trans-unit>
+            <trans-unit id="title_recipe_edit">
+                <source>title_recipe_edit</source>
+                <target>Edytuj przepis</target>
+            </trans-unit>
+            <trans-unit id="title_recipe_delete">
+                <source>title_recipe_delete</source>
+                <target>Usuń przepis</target>
+            </trans-unit>
+            <trans-unit id="label_ingredients">
+                 <source>label_ingredients</source>
+                 <target>Składniki</target>
+             </trans-unit>
+             <trans-unit id="label_none">
+                  <source>label_none</source>
+                  <target>Wybierz</target>
+              </trans-unit>
         </body>
     </file>
 </xliff>
