@@ -69,9 +69,9 @@ class Comment
     private $recipe;
 
     /**
-     * User.
+     * Author.
      *
-     * @var \App\Entity\User User
+     * @var \App\Entity\User
      *
      * @ORM\ManyToOne(
      *     targetEntity="App\Entity\User",
@@ -79,7 +79,7 @@ class Comment
      * )
      * @ORM\JoinColumn(nullable=false)
      */
-    private $user;
+    private $author;
 
     /**
      * Getter for Id.
@@ -151,23 +151,15 @@ class Comment
         $this->recipe = $recipe;
     }
 
-    /**
-     * Getter for user.
-     *
-     * @return \App\Entity\User|null User
-     */
-    public function getUser(): ?User
+    public function getAuthor(): ?User
     {
-        return $this->user;
+        return $this->author;
     }
 
-    /**
-     * Setter for user.
-     *
-     * @param \App\Entity\User|null $user User
-     */
-    public function setUser(?User $user): void
+    public function setAuthor(?User $author): self
     {
-        $this->user = $user;
+        $this->author = $author;
+
+        return $this;
     }
 }
