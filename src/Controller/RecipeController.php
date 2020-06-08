@@ -17,6 +17,7 @@ use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * Class RecipeController.
@@ -28,9 +29,9 @@ class RecipeController extends AbstractController
     /**
      * Index action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request        HTTP request
-     * @param \App\Repository\RecipeRepository            $recipeRepository Recipe repository
-     * @param \Knp\Component\Pager\PaginatorInterface   $paginator      Paginator
+     * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
+     * @param \App\Repository\RecipeRepository $recipeRepository Recipe repository
+     * @param \Knp\Component\Pager\PaginatorInterface $paginator Paginator
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -79,8 +80,8 @@ class RecipeController extends AbstractController
     /**
      * Create action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request        HTTP request
-     * @param \App\Repository\RecipeRepository            $recipeRepository Recipe repository
+     * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
+     * @param \App\Repository\RecipeRepository $recipeRepository Recipe repository
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -95,7 +96,7 @@ class RecipeController extends AbstractController
      */
     public function create(Request $request, RecipeRepository $recipeRepository): Response
     {
-        if(!$this->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+        if (!$this->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
             return $this->redirectToRoute('recipe_index');
         }
 
@@ -119,9 +120,9 @@ class RecipeController extends AbstractController
     /**
      * Edit action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request        HTTP request
-     * @param \App\Entity\Recipe                          $recipe           Recipe entity
-     * @param \App\Repository\RecipeRepository            $recipeRepository Recipe repository
+     * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
+     * @param \App\Entity\Recipe $recipe Recipe entity
+     * @param \App\Repository\RecipeRepository $recipeRepository Recipe repository
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -159,9 +160,9 @@ class RecipeController extends AbstractController
     /**
      * Delete action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request        HTTP request
-     * @param \App\Entity\Recipe                          $recipe           Recipe entity
-     * @param \App\Repository\RecipeRepository            $recipeRepository Recipe repository
+     * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
+     * @param \App\Entity\Recipe $recipe Recipe entity
+     * @param \App\Repository\RecipeRepository $recipeRepository Recipe repository
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -204,7 +205,7 @@ class RecipeController extends AbstractController
      * Show action.
      *
      * @param \App\Entity\Recipe $recipe Recipe entity
-     * * @param int                            $id         Element Id
+     * * @param int $id Element Id
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -220,16 +221,16 @@ class RecipeController extends AbstractController
         $recipe = $recipeRepository->find($id);
         $form = null;
 
-        if($this->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+        if ($this->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
             $comment = new Comment();
 
             $form = $this->createForm(CommentType::class, $comment);
             $form->handleRequest($request);
 
-            if($form->isSubmitted() && $form->isValid()) {
+            if ($form->isSubmitted() && $form->isValid()) {
 
                 $comment->setRecipe($recipe);
-                $comment->setUser($this->getUser());
+                $comment->setAuthor($this->getUser());
                 $commentRepository->save($comment);
 
                 $this->addFlash('success', 'message.comment_created_successfully');

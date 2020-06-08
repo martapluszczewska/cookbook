@@ -1,4 +1,7 @@
 <?php
+/**
+ * Security controller.
+ */
 
 namespace App\Controller;
 
@@ -20,7 +23,10 @@ class SecurityController extends AbstractController
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
-     * @Route("/login", name="app_login")
+     * @Route(
+     *     "/login",
+     *     name="app_login"
+     * )
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
@@ -51,7 +57,10 @@ class SecurityController extends AbstractController
      *
      * @throws \Exception
      *
-     * @Route("/logout", name="app_logout")
+     * @Route(
+     *     "/logout",
+     *     name="app_logout"
+     * )
      */
     public function logout()
     {

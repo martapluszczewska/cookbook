@@ -1,4 +1,7 @@
 <?php
+/**
+ * Tag repository.
+ */
 
 namespace App\Repository;
 
@@ -7,6 +10,8 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
+ * Class TagRepository.
+ *
  * @method Tag|null find($id, $lockMode = null, $lockVersion = null)
  * @method Tag|null findOneBy(array $criteria, array $orderBy = null)
  * @method Tag[]    findAll()

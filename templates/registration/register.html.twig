@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'action_register'|trans }}
+{% endblock %}
+
+{% block body %}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-6">
+            <form class="border border-light p-5" method="post">
+
+                <h2 class="h3 mb-3 font-weight-normal text-center">{{ 'action_register'|trans }}</h2>
+
+                {{ form_start(registrationForm) }}
+                    {{ form_row(registrationForm.email) }}
+                    {{ form_row(registrationForm.plainPassword) }}
+
+                    <button type="submit" class="btn btn-lg btn-block mt-4 btn-primary">
+                        {{ 'action_register'|trans }}
+                    </button>
+                {{ form_end(registrationForm) }}
+
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

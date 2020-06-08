@@ -12,6 +12,8 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
+ * Class User.
+ *
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @ORM\Table(
  *     name="users",
@@ -97,6 +99,11 @@ class User implements UserInterface
      * )
      */
     private $comments;
+
+    /**
+     * @ORM\OneToOne(targetEntity=UserData::class, mappedBy="user", cascade={"persist", "remove"})
+     */
+    private $userdata;
 
     public function __construct()
     {
@@ -236,6 +243,24 @@ class User implements UserInterface
             if ($comment->getAuthor() === $this) {
                 $comment->setAuthor(null);
             }
+        }
+
+        return $this;
+    }
+
+    public function getUserdata(): ?UserData
+    {
+        return $this->userdata;
+    }
+
+    public function setUserdata(?UserData $userdata): self
+    {
+        $this->userdata = $userdata;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newUser = null === $userdata ? null : $this;
+        if ($userdata->getUser() !== $newUser) {
+            $userdata->setUser($newUser);
         }
 
         return $this;

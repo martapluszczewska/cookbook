@@ -1,4 +1,7 @@
 <?php
+/**
+ * Ingredient repository.
+ */
 
 namespace App\Repository;
 
@@ -7,6 +10,8 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
+ * Class IngredientRepository.
+ *
  * @method Ingredient|null find($id, $lockMode = null, $lockVersion = null)
  * @method Ingredient|null findOneBy(array $criteria, array $orderBy = null)
  * @method Ingredient[]    findAll()

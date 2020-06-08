@@ -84,7 +84,10 @@ class Category
      *
      * @var \Doctrine\Common\Collections\ArrayCollection|\App\Entity\Recipe[] $recipes Recipes
      *
-     * @ORM\OneToMany(targetEntity=Recipe::class, mappedBy="category")
+     * @ORM\OneToMany(
+     *     targetEntity="App\Entity\Recipe",
+     *     mappedBy="category"
+     * )
      */
     private $recipes;
 

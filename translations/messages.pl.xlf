@@ -154,9 +154,13 @@
                 <source>message_sign_in</source>
                 <target>Zaloguj się</target>
             </trans-unit>
-            <trans-unit id="password">
-                <source>password</source>
+            <trans-unit id="label.password">
+                <source>label.password</source>
                 <target>Hasło</target>
+            </trans-unit>
+            <trans-unit id="label.repeat_password">
+                <source>label.repeat_password</source>
+                <target>Powtórz hasło</target>
             </trans-unit>
             <trans-unit id="comment_panel">
                 <source>comment_panel</source>
@@ -185,11 +189,63 @@
             <trans-unit id="label_ingredients">
                  <source>label_ingredients</source>
                  <target>Składniki</target>
-             </trans-unit>
-             <trans-unit id="label_none">
+            </trans-unit>
+            <trans-unit id="label_none">
                   <source>label_none</source>
                   <target>Wybierz</target>
-              </trans-unit>
+            </trans-unit>
+            <trans-unit id="welcome">
+                  <source>welcome</source>
+                  <target>Witaj,</target>
+            </trans-unit>
+            <trans-unit id="title_user_list">
+                  <source>title_user_list</source>
+                  <target>Lista użytkowników</target>
+            </trans-unit>
+            <trans-unit id="label_firstName">
+                  <source>label_firstName</source>
+                  <target>Imię</target>
+            </trans-unit>
+            <trans-unit id="label_lastName">
+                  <source>label_lastName</source>
+                  <target>Nazwisko</target>
+            </trans-unit>
+            <trans-unit id="label_nick">
+                  <source>label_nick</source>
+                  <target>Nick</target>
+            </trans-unit>
+            <trans-unit id="label.mail">
+                  <source>label.mail</source>
+                  <target>Email</target>
+            </trans-unit>
+            <trans-unit id="label_change_pass">
+                  <source>label_change_pass</source>
+                  <target>Zmień hasło</target>
+            </trans-unit>
+            <trans-unit id="label_change_data">
+                  <source>label_change_data</source>
+                  <target>Zmień dane</target>
+            </trans-unit>
+            <trans-unit id="label_delete">
+                  <source>label_delete</source>
+                  <target>Usuń</target>
+            </trans-unit>
+            <trans-unit id="current_pass">
+                  <source>current_pass</source>
+                  <target>Obecne hasło</target>
+            </trans-unit>
+            <trans-unit id="new_pass">
+                  <source>new_pass</source>
+                  <target>Nowe hasło</target>
+            </trans-unit>
+            <trans-unit id="confirm_pass">
+                  <source>confirm_pass</source>
+                  <target>Potwierdź hasło</target>
+            </trans-unit>
+            <trans-unit id="action_register">
+                  <source>action_register</source>
+                  <target>Zarejestruj się</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

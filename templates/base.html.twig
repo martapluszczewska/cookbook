@@ -17,11 +17,6 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
-            {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-                <li class="nav-item">
-{#                    <a class="nav-link">Użytkownik {{ app.user.firstName }}</a>#}
-                </li>
-            {% endif %}
             <li class="nav-item">
                 <a class="nav-link" href="{{ url('recipe_index') }}">{{ 'title_recipe_list'|trans }}</a>
             </li>
@@ -30,16 +25,17 @@
             </li>
             {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Witaj, user1</a>
+                    <a class="nav-link" href="{{ url('user_show', {id: app.user.getId()}) }}">{{ 'welcome'|trans }} {{ app.user.email }}</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url('app_logout') }}">{{ 'action_logout'|trans }}</a>
                 </li>
-{#                {{ 'title_recipe_details'|trans({'%title%': recipe.title|default('')}) }}#}
-
             {% else %}
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url('app_login') }}">{{ 'action_login'|trans }}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url('app_register') }}">{{ 'action_register'|trans }}</a>
                 </li>
             {% endif %}
         </ul>
