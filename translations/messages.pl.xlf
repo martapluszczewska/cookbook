@@ -112,11 +112,11 @@
             </trans-unit>
             <trans-unit id="message_updated_successfully">
                 <source>message_updated_successfully</source>
-                <target>Nazwa została zmieniona!</target>
+                <target>Dane zostały zmienione!</target>
             </trans-unit>
             <trans-unit id="message_created_successfully">
                 <source>message_created_successfully</source>
-                <target>Nazwa została dodana!</target>
+                <target>Utworzono pomyślnie!</target>
             </trans-unit>
             <trans-unit id="message.deleted_successfully">
                 <source>message.deleted_successfully</source>
@@ -234,17 +234,21 @@
                   <source>current_pass</source>
                   <target>Obecne hasło</target>
             </trans-unit>
-            <trans-unit id="new_pass">
-                  <source>new_pass</source>
+            <trans-unit id="label.New.Password">
+                  <source>label.New.Password</source>
                   <target>Nowe hasło</target>
             </trans-unit>
-            <trans-unit id="confirm_pass">
-                  <source>confirm_pass</source>
+            <trans-unit id="label.Repeat_Password">
+                  <source>label.Repeat_Password</source>
                   <target>Potwierdź hasło</target>
             </trans-unit>
             <trans-unit id="action_register">
                   <source>action_register</source>
                   <target>Zarejestruj się</target>
+            </trans-unit>
+            <trans-unit id="title.password_edit">
+                   <source>title.password_edit</source>
+                   <target>Zmień hasło</target>
             </trans-unit>
         </body>
     </file>

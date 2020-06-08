@@ -7,11 +7,13 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Repository\UserRepository;
+use App\Form\UserPassType;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
  * Class UserController.
@@ -68,6 +70,53 @@ class UserController extends AbstractController
         return $this->render(
             'user/show.html.twig',
             ['user' => $user]
+        );
+    }
+
+    /**
+     * Change password action.
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
+     * @param \App\Entity\User $user User entity
+     * @param \App\Repository\UserRepository $userRepository User repository
+     *
+     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     *
+     * @Route(
+     *     "/{id}/edit_pass",
+     *     methods={"GET", "PUT"},
+     *     requirements={"id": "[1-9]\d*"},
+     *     name="user_edit_pass",
+     * )
+     */
+    public function userEditPass(Request $request, User $user, UserRepository $userRepository, UserPasswordEncoderInterface $encoder, int $id): Response
+    {
+        $user = $userRepository->find($id);
+        $form = $this->createForm(UserPassType::class, $user, ['method' => 'PUT']);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $user->setPassword(
+                $encoder->encodePassword(
+                    $user,
+                    $form->get('password')->getData()
+                )
+            );
+            $userRepository->save($user);
+            $this->addFlash('success', 'message_updated_successfully');
+
+            return $this->redirectToRoute('user_show', ['id' => $id]);
+        }
+
+        return $this->render(
+            'user/change_pass.html.twig',
+            [
+                'form' => $form->createView(),
+                'user' => $user,
+            ]
         );
     }
 }

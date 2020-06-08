@@ -14,9 +14,9 @@
                 <div class="card p-3">
                     <div class="e-navlist e-navlist--active-bg">
                         <ul class="nav">
-                            <li class="nav-item"><a class="nav-link px-2 active" href="{{ url('user_show', {id: app.user.getId()}) }}"><i class="fa fa-fw fa-user mr-1"></i><span>Podgląd</span></a></li>
-                            <li class="nav-item"><a class="nav-link px-2" href="{{ url('user_show', {id: app.user.getId()}) }}"><i class="fa fa-fw fa-cog mr-1"></i><span>{{ 'label_change_data'|trans }}</span></a></li>
-                            <li class="nav-item"><a class="nav-link px-2" href="{{ url('user_edit_pass', {id: app.user.getId()}) }}"><i class="fa fa-fw fa fa-shield mr-1"></i><span>Zmiana hasła</span></a></li>
+                            <li class="nav-item"><a class="nav-link px-2 active" href="./overview.html"><i class="fa fa-fw fa-bar-chart mr-1"></i><span>Podgląd</span></a></li>
+                            <li class="nav-item"><a class="nav-link px-2" href="./settings.html"><i class="fa fa-fw fa-cog mr-1"></i><span>Zmiana danych</span></a></li>
+                            <li class="nav-item"><a class="nav-link px-2" href="./settings.html"><i class="fa fa-fw fa-cog mr-1"></i><span>Zmiana hasła</span></a></li>
                         </ul>
                     </div>
                 </div>
@@ -58,31 +58,37 @@
                                                         <div class="row">
                                                             <div class="col">
                                                                 <div class="form-group">
-                                                                    <span>{{ 'label_firstName'|trans }}</span>
-                                                                    <h5>{{ user.userdata.firstName }}</h5>
+                                                                    <label>{{ 'label_firstName'|trans }}</label>
+                                                                    <input class="form-control" type="text" name="name" placeholder="{{ user.userdata.firstName }}" value="{{ user.userdata.firstName }}">
                                                                 </div>
                                                             </div>
                                                             <div class="col">
                                                                 <div class="form-group">
-                                                                    <span>{{ 'label_lastName'|trans }}</span>
-                                                                    <h5>{{ user.userdata.lastName }}</h5>
+                                                                    <label>{{ 'label_lastName'|trans }}</label>
+                                                                    <input class="form-control" type="text" name="username" placeholder="{{ user.userdata.lastName }}" value="{{ user.userdata.lastName }}">
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="row">
                                                             <div class="col">
                                                                 <div class="form-group">
-                                                                    <span>{{ 'label_nick'|trans }}</span>
-                                                                    <h5>{{ user.userdata.nick }}</h5>
+                                                                    <label>{{ 'label_nick'|trans }}</label>
+                                                                    <input class="form-control" type="text" placeholder="{{ user.userdata.nick }}">
                                                                 </div>
                                                             </div>
                                                             <div class="col">
                                                                 <div class="form-group">
-                                                                    <span>{{ 'label.mail'|trans }}</span>
-                                                                    <h5>{{ user.email }}</h5>
+                                                                    <label>{{ 'label.mail'|trans }}</label>
+                                                                    <input class="form-control" type="text" placeholder="{{ user.email }}">
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col d-flex justify-content-end">
+                                                        {#                                                        <button class="btn btn-info rounded-0" type="submit">{{ 'action_save'|trans }}</button>#}
+                                                        <input type="submit" value="{{ submit_label|default('action_save'|trans) }}" class="btn btn-info rounded-0" />
                                                     </div>
                                                 </div>
                                             </form>

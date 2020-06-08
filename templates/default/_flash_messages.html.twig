@@ -7,14 +7,16 @@
    '_flash_messages.html.twig' instead of 'flash_messages.html.twig'
 #}
 {% if app.session.flashBag.peekAll is defined and app.session.flashBag.peekAll is not empty %}
-    <div class="messages">
-        {% for type, messages in app.session.flashBag.all %}
-            {% for message in messages %}
-                {%  include 'default/_single_flash_message.html.twig' with {
-                    type: type,
-                    message: message|trans
-                } %}
+    <div class="row justify-content-center">
+        <div class="messages col-10 text-center">
+            {% for type, messages in app.session.flashBag.all %}
+                {% for message in messages %}
+                    {%  include 'default/_single_flash_message.html.twig' with {
+                        type: type,
+                        message: message|trans
+                    } %}
+                {% endfor %}
             {% endfor %}
-        {% endfor %}
+        </div>
     </div>
 {% endif %}
