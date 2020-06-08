@@ -5,70 +5,67 @@
 {% endblock %}
 
 {% block body %}
-{#    <div class="container">#}
-        <div class="text-center pb-3">
-            <h2>{{ 'title_category_list'|trans }}</h2>
-        </div>
 
-        {% if pagination is defined and pagination.items|length %}
+    {% if pagination is defined and pagination.items|length %}
 
-            <p>
-{#                <a href="{{ url('recipe_index') }}" title="{{ 'title_recipe_list'|trans }}" class="btn btn-dark rounded-0 my-2">#}
-{#                    {{ 'title_recipe_list'|trans }}#}
-{#                </a>#}
-                <a href="{{ url('category_create') }}" title="{{ 'title_category_create'|trans }}" class="btn btn-dark rounded-0 my-2">
-                    {{ 'title_category_create'|trans }}
-                </a>
-            </p>
+            <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 
-            <div class="navigation text-center">
-                {{ knp_pagination_render(pagination) }}
-            </div>
+            <section class="section services-section" id="services">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <div class="section-title text-center">
+                                <h2>
+                                    <a href="{{ url('category_create') }}" class="title-add text-reset decoration-none">
+                                        {{ 'title_category_list'|trans }}
+                                    </a>
+                                </h2>
+                                <div class="dropdown">
+                                    <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        SORTUJ WEDŁUG
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <button class="dropdown-item" type="button">
+                                            {{ knp_pagination_sortable(pagination, 'label_id'|trans, 'category.id') }}
+                                        </button>
+                                        <button class="dropdown-item" type="button">
+                                            {{ knp_pagination_sortable(pagination, 'label_created_at'|trans, 'category.createdAt') }}
+                                        </button>
+                                        <button class="dropdown-item" type="button">
+                                            {{ knp_pagination_sortable(pagination, 'label_updated_at'|trans, 'category.updatedAt') }}
+                                        </button>
+                                        <button class="dropdown-item" type="button">
+                                            {{ knp_pagination_sortable(pagination, 'label_title'|trans, 'category.title') }}
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="navigation">
+                                {{ knp_pagination_render(pagination) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        {% for category in pagination.items %}
 
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <th>{{ knp_pagination_sortable(pagination, 'label_id'|trans, 'category.id') }}</th>
-                    <th>{{ knp_pagination_sortable(pagination, 'label_created_at'|trans, 'category.createdAt') }}</th>
-                    <th>{{ knp_pagination_sortable(pagination, 'label_updated_at'|trans, 'category.updatedAt') }}</th>
-                    <th>{{ knp_pagination_sortable(pagination, 'label_title'|trans, 'category.title') }}</th>
-                    <th>{{ 'label_actions'|trans }}</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for category in pagination.items %}
-                    <tr>
-                        <td>{{ category.id }}</td>
-                        <td>{{ category.createdAt|date('Y/m/d') }}</td>
-                        <td>{{ category.updatedAt|date('Y/m/d') }}</td>
-                        <td>{{ category.title }}</td>
-                        <td>
-                            <a href="{{ url('category_show', {id: category.id}) }}" title="{{ 'category_view'|trans }}" class="text-decoration-none">
-                                <svg class="bi bi-eye-fill" width="1.5em" height="1.5em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M10.5 8a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"/>
-                                    <path fill-rule="evenodd" d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 100-7 3.5 3.5 0 000 7z" clip-rule="evenodd"/>
-                                </svg>
-                            </a>
-                            <a href="{{ url('category_edit', {id: category.id}) }}" title="{{ 'category_edit'|trans }}" class="text-decoration-none">
-                                <svg class="bi bi-pencil-square" width="1.5em" height="1.5em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M15.502 1.94a.5.5 0 010 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 01.707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 00-.121.196l-.805 2.414a.25.25 0 00.316.316l2.414-.805a.5.5 0 00.196-.12l6.813-6.814z"/>
-                                    <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 002.5 15h11a1.5 1.5 0 001.5-1.5v-6a.5.5 0 00-1 0v6a.5.5 0 01-.5.5h-11a.5.5 0 01-.5-.5v-11a.5.5 0 01.5-.5H9a.5.5 0 000-1H2.5A1.5 1.5 0 001 2.5v11z" clip-rule="evenodd"/>
-                                </svg>
-                            </a>
-                            {% if not category.recipes|length %}
-                                <a href="{{ url('category_delete', {id: category.id}) }}" title="{{ 'category_delete'|trans }}" class="text-decoration-none">
-                                    <svg class="bi bi-trash-fill" width="1.5em" height="1.5em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" d="M2.5 1a1 1 0 00-1 1v1a1 1 0 001 1H3v9a2 2 0 002 2h6a2 2 0 002-2V4h.5a1 1 0 001-1V2a1 1 0 00-1-1H10a1 1 0 00-1-1H7a1 1 0 00-1 1H2.5zm3 4a.5.5 0 01.5.5v7a.5.5 0 01-1 0v-7a.5.5 0 01.5-.5zM8 5a.5.5 0 01.5.5v7a.5.5 0 01-1 0v-7A.5.5 0 018 5zm3 .5a.5.5 0 00-1 0v7a.5.5 0 001 0v-7z" clip-rule="evenodd"/>
-                                    </svg>
+                            <div class="col-sm-6 col-lg-4">
+                                <a href="{{ url('category_show', {id: category.id}) }}" title="{{ 'action_view'|trans }}" class="text-reset text-decoration-none">
+                                    <div class="feature-box-1 category">
+                                        <div class="feature-content">
+                                            <h5>{{ category.title }}</h5>
+                                            <p>{{ 'label_created_at'|trans }}: {{ category.createdAt|date('Y/m/d') }}</p>
+                                            <p class="mb-3">{{ 'label_updated_at'|trans }}: {{ category.updatedAt|date('Y/m/d') }}</p>
+                                        </div>
+                                    </div>
                                 </a>
-                            {% endif %}
-                        </td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
+                            </div>
 
-            <div class="navigation text-center">
+                        {% endfor %}
+                    </div>
+                </div>
+            </section>
+
+            <div class="navigation mt-3">
                 {{ knp_pagination_render(pagination) }}
             </div>
 

@@ -23,8 +23,8 @@
                 {% if page_title_param is defined %}{{ page_title|trans(page_title_param) }}{% else %}{{ page_title|trans }}{% endif %}
             </h2>
         </div>
-        <div class="row flex-lg-nowrap justify-content-center mt-5">
-            <div class="col-md-8">
+    <div class="row flex-lg-wrap justify-content-center mt-5">
+            <div class="col-md-6">
                 {{ form_start(form, { method: attr.method|default('POST'), action: attr.action }) }}
                 {% if false == form.vars.valid %}
                     {% include 'default/_single_flash_message.html.twig' with {
@@ -37,7 +37,7 @@
         </div>
         <div class="container-fluid">
             <div class="col-sm-12 text-center">
-                <input type="submit" value="{{ submit_label|default('action_save'|trans) }}" class="btn btn-primary rounded-0" />
+                <input type="submit" value="{{ submit_label|default('action_save'|trans) }}" class="btn btn-info rounded-0" />
                 {% if back_to_list_path|default(false) %}
                     <a href="{{ url(back_to_list_path) }}" class="btn btn-dark rounded-0">
                         {{ 'action_back_to_list'|trans }}

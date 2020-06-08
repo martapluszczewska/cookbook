@@ -29,7 +29,7 @@ class RecipeRepository extends ServiceEntityRepository
      *
      * @constant int
      */
-    const PAGINATOR_ITEMS_PER_PAGE = 3;
+    const PAGINATOR_ITEMS_PER_PAGE = 9;
 
     /**
      * RecipeRepository constructor.

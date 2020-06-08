@@ -15,7 +15,7 @@
                     <div class="e-navlist e-navlist--active-bg">
                         <ul class="nav">
                             <li class="nav-item"><a class="nav-link px-2 active" href="{{ url('user_show', {id: app.user.getId()}) }}"><i class="fa fa-fw fa-user mr-1"></i><span>Podgląd</span></a></li>
-                            <li class="nav-item"><a class="nav-link px-2" href="{{ url('user_show', {id: app.user.getId()}) }}"><i class="fa fa-fw fa-cog mr-1"></i><span>{{ 'label_change_data'|trans }}</span></a></li>
+                            <li class="nav-item"><a class="nav-link px-2" href="{{ url('user_edit', {id: app.user.getId()}) }}"><i class="fa fa-fw fa-cog mr-1"></i><span>{{ 'label_change_data'|trans }}</span></a></li>
                             <li class="nav-item"><a class="nav-link px-2" href="{{ url('user_edit_pass', {id: app.user.getId()}) }}"><i class="fa fa-fw fa fa-shield mr-1"></i><span>Zmiana hasła</span></a></li>
                         </ul>
                     </div>

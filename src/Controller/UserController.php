@@ -6,13 +6,17 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Entity\UserData;
 use App\Repository\UserRepository;
+use App\Repository\UserDataRepository;
+use App\Form\UserDataType;
 use App\Form\UserPassType;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
@@ -74,6 +78,49 @@ class UserController extends AbstractController
     }
 
     /**
+     * Change data action.
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
+     * @param \App\Entity\UserData $userdata UserData entity
+     * @param \App\Repository\UserDataRepository $userDataRepository UserData repository
+     *
+     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     *
+     * @Route(
+     *     "/{id}/edit",
+     *     methods={"GET", "PUT"},
+     *     requirements={"id": "[1-9]\d*"},
+     *     name="user_edit",
+     * )
+     *
+     * @IsGranted("ROLE_USER")
+     */
+    public function userEdit(Request $request, UserData $userdata, UserDataRepository $userDataRepository, int $id): Response
+    {
+        $userdata = $userDataRepository->find($id);
+        $form = $this->createForm(UserDataType::class, $userdata, ['method' => 'PUT']);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $userDataRepository->save($userdata);
+            $this->addFlash('success', 'message_updated_successfully');
+
+            return $this->redirectToRoute('user_show', ['id' => $id]);
+        }
+
+        return $this->render(
+            'user/change_data.html.twig',
+            [
+                'form' => $form->createView(),
+                'userdata' => $userdata,
+            ]
+        );
+    }
+
+    /**
      * Change password action.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
@@ -91,6 +138,8 @@ class UserController extends AbstractController
      *     requirements={"id": "[1-9]\d*"},
      *     name="user_edit_pass",
      * )
+     *
+     * @IsGranted("ROLE_USER")
      */
     public function userEditPass(Request $request, User $user, UserRepository $userRepository, UserPasswordEncoderInterface $encoder, int $id): Response
     {
