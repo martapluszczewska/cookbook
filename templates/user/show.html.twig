@@ -9,14 +9,15 @@
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
     <div class="container">
         <div class="row flex-lg-nowrap justify-content-center">
-
             <div class="col-12 col-lg-auto mb-3" style="width: 200px;">
                 <div class="card p-3">
                     <div class="e-navlist e-navlist--active-bg">
                         <ul class="nav">
                             <li class="nav-item"><a class="nav-link px-2 active" href="{{ url('user_show', {id: user.id}) }}"><i class="fa fa-fw fa-user mr-1"></i><span>Podgląd</span></a></li>
-                            <li class="nav-item"><a class="nav-link px-2" href="{{ url('user_edit', {id: user.userdata.id}) }}"><i class="fa fa-fw fa-cog mr-1"></i><span>{{ 'label_change_data'|trans }}</span></a></li>
-                            <li class="nav-item"><a class="nav-link px-2" href="{{ url('user_edit_pass', {id: user.id}) }}"><i class="fa fa-fw fa fa-shield mr-1"></i><span>Zmiana hasła</span></a></li>
+                            {% if is_granted('USER', user) %}
+                                <li class="nav-item"><a class="nav-link px-2" href="{{ url('user_edit', {id: user.userdata.id}) }}"><i class="fa fa-fw fa-cog mr-1"></i><span>{{ 'label_change_data'|trans }}</span></a></li>
+                                <li class="nav-item"><a class="nav-link px-2" href="{{ url('user_edit_pass', {id: user.id}) }}"><i class="fa fa-fw fa fa-shield mr-1"></i><span>Zmiana hasła</span></a></li>
+                            {% endif %}
                         </ul>
                     </div>
                 </div>

@@ -266,6 +266,34 @@
                    <source>title.data_edit</source>
                    <target>Edycja danych</target>
             </trans-unit>
+            <trans-unit id="title_tag_list">
+                   <source>title_tag_list</source>
+                   <target>Tagi</target>
+            </trans-unit>
+            <trans-unit id="title_tag_edit">
+                   <source>title_tag_edit</source>
+                   <target>Edytuj tag</target>
+            </trans-unit>
+            <trans-unit id="title_tag_delete">
+                   <source>title_tag_delete</source>
+                   <target>Usuń tag</target>
+            </trans-unit>
+            <trans-unit id="title_tag_details">
+                   <source>title_tag_details</source>
+                   <target>Szczegóły tagu</target>
+            </trans-unit>
+            <trans-unit id="tag_edit">
+                <source>tag_edit</source>
+                <target>Edytuj taga</target>
+            </trans-unit>
+            <trans-unit id="tag_delete">
+                <source>tag_delete</source>
+                <target>Usuń taga</target>
+            </trans-unit>
+            <trans-unit id="title_tag">
+                <source>title_tag</source>
+                <target>%title%</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

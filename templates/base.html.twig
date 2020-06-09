@@ -23,6 +23,9 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{ url('category_index') }}">{{ 'title_category_list'|trans }}</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url('tag_index') }}">{{ 'title_tag_list'|trans }}</a>
+            </li>
             {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url('user_show', {id: app.user.getId()}) }}">{{ 'welcome'|trans }} {{ app.user.email }}</a>

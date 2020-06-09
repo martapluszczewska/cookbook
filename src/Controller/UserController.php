@@ -39,6 +39,8 @@ class UserController extends AbstractController
      *     methods={"GET"},
      *     name="user_index",
      * )
+     *
+     * @IsGranted("ROLE_USER")
      */
     public function index(Request $request, UserRepository $userRepository, PaginatorInterface $paginator): Response
     {
@@ -67,6 +69,8 @@ class UserController extends AbstractController
      *     name="user_show",
      *     requirements={"id": "[1-9]\d*"},
      * )
+     *
+     * @IsGranted("ROLE_USER")
      */
     public function show(User $user): Response
     {
@@ -95,6 +99,10 @@ class UserController extends AbstractController
      *     name="user_edit_pass",
      * )
      *
+     * @IsGranted(
+     *     "USER",
+     *     subject="user",
+     * )
      * @IsGranted("ROLE_USER")
      */
     public function userEditPass(Request $request, User $user, UserRepository $userRepository, UserPasswordEncoderInterface $encoder, int $id): Response

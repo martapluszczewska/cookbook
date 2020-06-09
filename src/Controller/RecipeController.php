@@ -205,7 +205,7 @@ class RecipeController extends AbstractController
      * Show action.
      *
      * @param \App\Entity\Recipe $recipe Recipe entity
-     * * @param int $id Element Id
+     * @param int $id Element Id
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
