@@ -79,8 +79,7 @@
                                         <dt>{{ 'label_tags'|trans }}</dt>
                                         <dd>
                                             {% for tag in recipe.getTags() %}
-                                                {#                                <span class="badge badge-pill badge-info">{{ tag.title }}</span>#}
-                                                <a href="#" class="badge badge-info">{{ tag.title }}</a>
+                                                <a href="{{ url('tag_show', {id: tag.id}) }}" class="badge badge-info">{{ tag.title }}</a>
                                             {% endfor %}
                                         </dd>
                                     </dl>
@@ -91,7 +90,7 @@
                     </div>
 
                     <div class="row bootstrap snippets">
-                        <div class="col-md-6 col-md-offset-2 col-sm-12">
+                        <div class="col col-md-offset-2 col-sm-12">
                             <div class="comment-wrapper">
                                 <div class="panel panel-info">
                                     <div class="panel-heading">
@@ -104,11 +103,12 @@
                                             <ul class="media-list px-0">
                                                 <li class="media">
                                                     <div class="media-body">
-                                                        <span class="text-muted pull-right">
-                                                            <small class="text-info">{{ element.author.email }}</small>
-                                                            <small class="text-muted">{{ element.createdAt|date('Y/m/d') }}</small>
+                                                        <span class="text-muted">
+                                                        <small class="text-info"><p class="m-0">@{{ element.author.userdata.nick }}</p></small>
                                                         </span>
                                                         <p>{{ element.text }}</p>
+                                                        <small class="text-muted"><p class="m-0">{{ element.author.email }}</p></small>
+                                                        <small class="text-muted"><p class="m-0">{{ element.createdAt|date('Y/m/d') }}</p></small>
                                                     </div>
                                                 </li>
                                             </ul>
@@ -116,7 +116,7 @@
                                         {% if is_granted('IS_AUTHENTICATED_REMEMBERED') and comment_form is defined %}
                                                 {{ form_start(comment_form, { method: 'POST', action: url('recipe_show', {id: recipe.id}) }) }}
                                                 {{ form_widget(comment_form) }}
-                                                <input type="submit" value="{{ 'post'|trans }}" class="btn btn-info pull-right rounded-0 mb-3" />
+                                                <input type="submit" value="{{ 'post'|trans }}" class="btn btn-info rounded-0 mb-3" />
                                             {{ form_end(comment_form) }}
                                         {% else %}
                                             <p><a href="{{ url('app_login') }}">{{ 'message_sign_in'|trans }}</a>, {{ 'desctiption.login_to_comment'|trans }}.</p>

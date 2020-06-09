@@ -258,6 +258,10 @@
                    <source>title.user_list</source>
                    <target>User list</target>
             </trans-unit>
+            <trans-unit id="title.data_edit">
+                   <source>title.data_edit</source>
+                   <target>Edit user</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

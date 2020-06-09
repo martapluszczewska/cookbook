@@ -98,7 +98,8 @@ class Recipe
      *
      * @ORM\OneToMany(
      *     targetEntity="App\Entity\Comment",
-     *     mappedBy="recipe"
+     *     mappedBy="recipe",
+     *     orphanRemoval=true
      * )
      */
     private $comments;

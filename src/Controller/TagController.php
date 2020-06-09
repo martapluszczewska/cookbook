@@ -7,6 +7,7 @@ namespace App\Controller;
 
 use App\Entity\Recipe;
 use App\Repository\RecipeRepository;
+use App\Entity\Tag;
 use App\Repository\TagRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -22,33 +23,24 @@ use Symfony\Component\Routing\Annotation\Route;
 class TagController extends AbstractController
 {
     /**
-     * Articles view action.
+     * Show action.
      *
-     * @param Request $request
-     * @param RecipeRepository $repository
-     * @param PaginatorInterface $paginator
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @param \App\Entity\Tag $tag Tag entity
+     *
+     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     *
      * @Route(
-     *     "/{title}/{id}",
-     *     name="tag_recipes",
+     *     "/{id}",
+     *     methods={"GET"},
+     *     name="tag_show",
+     *     requirements={"id": "[1-9]\d*"},
      * )
      */
-    public function articlesView(Request $request, TagRepository $tagRepository, RecipeRepository $recipeRepository, PaginatorInterface $paginator, int $id): Response
+    public function show(Tag $tag): Response
     {
-        $tag = $tagRepository->find($id);
-
-        $pagination = $paginator->paginate(
-            $recipeRepository->findbyTag($tag),
-            $request->query->getInt('page', 1),
-            Recipe::NUMBER_OF_ITEMS
-        );
-
         return $this->render(
-            'tag/view.html.twig',
-            [
-                'pagination' => $pagination,
-                'tagName' => $tag->getName()
-            ]
+            'tag/show.html.twig',
+            ['tag' => $tag]
         );
     }
 }

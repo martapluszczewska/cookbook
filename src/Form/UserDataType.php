@@ -80,6 +80,6 @@ class UserDataType extends AbstractType
      */
     public function getBlockPrefix(): string
     {
-        return 'user_data';
+        return 'userdata';
     }
 }

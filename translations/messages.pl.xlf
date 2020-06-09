@@ -258,6 +258,14 @@
                    <source>title.user_list</source>
                    <target>Użytkownicy</target>
             </trans-unit>
+            <trans-unit id="desctiption.login_to_comment">
+                   <source>desctiption.login_to_comment</source>
+                   <target>aby dodać komentarz</target>
+            </trans-unit>
+            <trans-unit id="title.data_edit">
+                   <source>title.data_edit</source>
+                   <target>Edycja danych</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

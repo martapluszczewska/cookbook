@@ -6,10 +6,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Entity\UserData;
 use App\Repository\UserRepository;
-use App\Repository\UserDataRepository;
-use App\Form\UserDataType;
 use App\Form\UserPassType;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,7 +15,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 /**
  * Class UserController.
@@ -77,49 +73,6 @@ class UserController extends AbstractController
         return $this->render(
             'user/show.html.twig',
             ['user' => $user]
-        );
-    }
-
-    /**
-     * Change data action.
-     *
-     * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
-     * @param \App\Entity\UserData $userdata UserData entity
-     * @param \App\Repository\UserDataRepository $userDataRepository UserData repository
-     *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
-     *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
-     *
-     * @Route(
-     *     "/{id}/edit_data",
-     *     methods={"GET", "PUT"},
-     *     requirements={"id": "[1-9]\d*"},
-     *     name="user_edit",
-     * )
-     *
-     * @IsGranted("ROLE_USER")
-     */
-    public function userEdit(Request $request, UserData $user_data, UserDataRepository $userDataRepository, int $id): Response
-    {
-        $user_data = $userDataRepository->find($id);
-        $form = $this->createForm(UserDataType::class, $user_data, ['method' => 'PUT']);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $userDataRepository->save($user_data);
-            $this->addFlash('success', 'message_updated_successfully');
-
-            return $this->redirectToRoute('user_show', ['id' => $id]);
-        }
-
-        return $this->render(
-            'user/change_data.html.twig',
-            [
-                'form' => $form->createView(),
-                'user_data' => $user_data,
-            ]
         );
     }
 
