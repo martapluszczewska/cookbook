@@ -31,24 +31,26 @@ class UserType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $builder->add(
-            'email',
-            EmailType::class,
-            [
-                'label' => 'label_email',
-            ]
-        );
-        $builder->add(
-            'password',
-            RepeatedType::class,
-            [
-                'type' => PasswordType::class,
-                'first_options' => ['label' => 'label.Password'],
-                'second_options' => ['label' => 'label.Repeat_Password'],
-                'options' => ['attr' => ['min_length' => 6, 'max_length' => 25],
-                ],
-            ]
-        );
+        $builder
+            ->add(
+                'email',
+                EmailType::class,
+                [
+                    'label' => 'label.mail',
+                ]
+            )
+            ->add(
+                'password',
+                RepeatedType::class,
+                [
+                    'type' => PasswordType::class,
+                    'first_options' => ['label' => 'label.password'],
+                    'second_options' => ['label' => 'label.repeat_password'],
+                    'options' => ['attr' => ['min_length' => 6, 'max_length' => 25],
+                    ],
+                ]
+            )
+        ;
     }
 
     /**

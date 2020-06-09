@@ -29,33 +29,35 @@ class UserDataType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $builder->add(
-            'firstName',
-            TextType::class,
-            [
-                'label' => 'label_firstName',
-                'required' => true,
-                'attr' => ['max_length' => 64],
-            ]
-        );
-        $builder->add(
-            'lastName',
-            TextType::class,
-            [
-                'label' => 'label_lastName',
-                'required' => true,
-                'attr' => ['max_length' => 64],
-            ]
-        );
-        $builder->add(
-            'nick',
-            TextType::class,
-            [
-                'label' => 'label_nick',
-                'required' => true,
-                'attr' => ['max_length' => 64],
-            ]
-        );
+        $builder
+            ->add(
+                'firstName',
+                TextType::class,
+                [
+                    'label' => 'label_firstName',
+                    'required' => true,
+                    'attr' => ['max_length' => 64],
+                ]
+            )
+            ->add(
+                'lastName',
+                TextType::class,
+                [
+                    'label' => 'label_lastName',
+                    'required' => true,
+                    'attr' => ['max_length' => 64],
+                ]
+            )
+            ->add(
+                'nick',
+                TextType::class,
+                [
+                    'label' => 'label_nick',
+                    'required' => true,
+                    'attr' => ['max_length' => 64],
+                ]
+            )
+        ;
     }
 
     /**
@@ -78,6 +80,6 @@ class UserDataType extends AbstractType
      */
     public function getBlockPrefix(): string
     {
-        return 'userdata';
+        return 'user_data';
     }
 }

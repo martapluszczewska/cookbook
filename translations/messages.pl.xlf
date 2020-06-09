@@ -250,6 +250,14 @@
                    <source>title.password_edit</source>
                    <target>Zmień hasło</target>
             </trans-unit>
+            <trans-unit id="message.registered_successfully">
+                   <source>message.registered_successfully</source>
+                   <target>Konto zostało utworzone!</target>
+            </trans-unit>
+            <trans-unit id="title.user_list">
+                   <source>title.user_list</source>
+                   <target>Użytkownicy</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

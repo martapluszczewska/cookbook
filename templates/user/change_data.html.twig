@@ -1,9 +1,9 @@
 {% include 'default/_form.html.twig' with {
     page_title: 'title.data_edit',
-    page_title_param: {'%id%': userdata.id},
+    page_title_param: {'%id%': user_data.id},
     attr: {
         method: 'PUT',
-        action: url('user_edit', {'id': userdata.id}),
+        action: url('user_edit', {'id': user_data.id}),
     },
 } %}
 {#{% extends 'base.html.twig' %}#}

@@ -18,11 +18,14 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 /**
  * Class UserController.
  *
  * @Route("/user")
+ *
+ * @IsGranted("ROLE_USER")
  */
 class UserController extends AbstractController
 {
@@ -90,7 +93,7 @@ class UserController extends AbstractController
      * @throws \Doctrine\ORM\OptimisticLockException
      *
      * @Route(
-     *     "/{id}/edit",
+     *     "/{id}/edit_data",
      *     methods={"GET", "PUT"},
      *     requirements={"id": "[1-9]\d*"},
      *     name="user_edit",
@@ -98,14 +101,14 @@ class UserController extends AbstractController
      *
      * @IsGranted("ROLE_USER")
      */
-    public function userEdit(Request $request, UserData $userdata, UserDataRepository $userDataRepository, int $id): Response
+    public function userEdit(Request $request, UserData $user_data, UserDataRepository $userDataRepository, int $id): Response
     {
-        $userdata = $userDataRepository->find($id);
-        $form = $this->createForm(UserDataType::class, $userdata, ['method' => 'PUT']);
+        $user_data = $userDataRepository->find($id);
+        $form = $this->createForm(UserDataType::class, $user_data, ['method' => 'PUT']);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $userDataRepository->save($userdata);
+            $userDataRepository->save($user_data);
             $this->addFlash('success', 'message_updated_successfully');
 
             return $this->redirectToRoute('user_show', ['id' => $id]);
@@ -115,7 +118,7 @@ class UserController extends AbstractController
             'user/change_data.html.twig',
             [
                 'form' => $form->createView(),
-                'userdata' => $userdata,
+                'user_data' => $user_data,
             ]
         );
     }

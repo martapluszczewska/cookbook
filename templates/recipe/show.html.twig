@@ -5,66 +5,89 @@
 {% endblock %}
 
 {% block body %}
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    {% if recipe is defined and recipe|length %}
+
     <div class="container">
         <div class="text-center">
             <h2>{{ 'title_recipe_details'|trans }}</h2>
             <h3>{{ 'title_recipe'|trans({'%title%': recipe.title|default('')}) }}</h3>
         </div>
-        <div class="row justify-content-center my-5">
-            <div class="col-10">
-                {% if recipe is defined and recipe|length %}
+        <div class="row flex-lg-nowrap justify-content-center">
+
+            <div class="col-12 col-lg-auto mb-3" style="width: 200px;">
+                <div class="card p-3">
+                    <p>{{ 'label_ingredients'|trans }}</p>
+                    <ul class="list-unstyled">
+                        {% for ingredient in recipe.getIngredients() %}
+                            <li>
+                                {{ ingredient.title }}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col">
                     <div class="row">
-                        <div class="col">
-                            <dl class="dl-horizontal">
-                                <dt>{{ 'label_id'|trans }}</dt>
-                                <dd>{{ recipe.id }}</dd>
-                                <dt>{{ 'label_title'|trans }}</dt>
-                                <dd>{{  recipe.title }}</dd>
-                                <dt>{{ 'label_category'|trans }}</dt>
-                                <dd><a href="url('category_show', {id: category.id})">{{  recipe.category.title }}</a></dd>
-                                <dt>{{ 'label_ingredients'|trans }}</dt>
-                                <dd>
-                                    <ul>
-                                        {% for ingredient in recipe.getIngredients() %}
-                                            <li>
-                                                {{ ingredient.title }}
-                                            </li>
-                                        {% endfor %}
-                                    </ul>
-                                </dd>
-                            </dl>
+                        <div class="col mb-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-12 col-sm-auto mb-3">
+                                            <div class="mx-auto" style="width: 640px;">
+                                                <div class="d-flex justify-content-center align-items-center rounded" style="height: 230px; background-color: rgb(233, 236, 239);">
+                                                    <span style="color: rgb(166, 168, 170); font: bold 8pt Arial;">640x230</span>
+                                                </div>
+                                            </div>
+                                        </div>
+{#                                        <div class="col d-flex flex-column flex-sm-row justify-content-between mb-3">#}
+{#                                           #}
+{#                                        </div>#}
+                                    </div>
+                                    <div class="text-center text-sm-left mb-2 mb-sm-0">
+                                        <h4 class="pt-sm-2 pb-1 mb-0 text-nowrap">
+                                            {{ recipe.title }}
+                                        </h4>
+                                        <p class="mb-0">{{ recipe.category.title }}</p>
+                                    </div>
+                                    <dl class="dl-horizontal">
+                                        <dt>{{ 'label_id'|trans }}</dt>
+                                        <dd>{{ recipe.id }}</dd>
+                                        <dt>{{ 'label_category'|trans }}</dt>
+                                        <dd><a href="url('category_show', {id: category.id})">{{  recipe.category.title }}</a></dd>
+                                        <dt>{{ 'label_created_at'|trans }}</dt>
+                                        <dd>{{ recipe.createdAt|date('Y/m/d') }}</dd>
+                                        <dt>{{ 'label_updated_at'|trans }}</dt>
+                                        <dd>{{ recipe.updatedAt|date('Y/m/d') }}</dd>
+                                        <dt>
+                                            {{ 'label_actions'|trans }}
+                                        </dt>
+                                        <dd>
+                                            <a href="{{ url('recipe_edit', {id: recipe.id}) }}" title="{{ 'recipe_edit'|trans }}" class="text-decoration-none">
+                                                <svg class="bi bi-pencil-square" width="1.5em" height="1.5em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M15.502 1.94a.5.5 0 010 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 01.707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 00-.121.196l-.805 2.414a.25.25 0 00.316.316l2.414-.805a.5.5 0 00.196-.12l6.813-6.814z"/>
+                                                    <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 002.5 15h11a1.5 1.5 0 001.5-1.5v-6a.5.5 0 00-1 0v6a.5.5 0 01-.5.5h-11a.5.5 0 01-.5-.5v-11a.5.5 0 01.5-.5H9a.5.5 0 000-1H2.5A1.5 1.5 0 001 2.5v11z" clip-rule="evenodd"/>
+                                                </svg>
+                                            </a>
+                                            <a href="{{ url('recipe_delete', {id: recipe.id}) }}" title="{{ 'recipe_delete'|trans }}" class="text-decoration-none">
+                                                <svg class="bi bi-trash-fill" width="1.5em" height="1.5em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" d="M2.5 1a1 1 0 00-1 1v1a1 1 0 001 1H3v9a2 2 0 002 2h6a2 2 0 002-2V4h.5a1 1 0 001-1V2a1 1 0 00-1-1H10a1 1 0 00-1-1H7a1 1 0 00-1 1H2.5zm3 4a.5.5 0 01.5.5v7a.5.5 0 01-1 0v-7a.5.5 0 01.5-.5zM8 5a.5.5 0 01.5.5v7a.5.5 0 01-1 0v-7A.5.5 0 018 5zm3 .5a.5.5 0 00-1 0v7a.5.5 0 001 0v-7z" clip-rule="evenodd"/>
+                                                </svg>
+                                            </a>
+                                        </dd>
+                                        <dt>{{ 'label_tags'|trans }}</dt>
+                                        <dd>
+                                            {% for tag in recipe.getTags() %}
+                                                {#                                <span class="badge badge-pill badge-info">{{ tag.title }}</span>#}
+                                                <a href="#" class="badge badge-info">{{ tag.title }}</a>
+                                            {% endfor %}
+                                        </dd>
+                                    </dl>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col">
-                            <dl class="dl-horizontal">
-                                <dt>{{ 'label_created_at'|trans }}</dt>
-                                <dd>{{ recipe.createdAt|date('Y/m/d') }}</dd>
-                                <dt>{{ 'label_updated_at'|trans }}</dt>
-                                <dd>{{ recipe.updatedAt|date('Y/m/d') }}</dd>
-                                <dt>
-                                    {{ 'label_actions'|trans }}
-                                </dt>
-                                <dd>
-                                    <a href="{{ url('recipe_edit', {id: recipe.id}) }}" title="{{ 'recipe_edit'|trans }}" class="text-decoration-none">
-                                        <svg class="bi bi-pencil-square" width="1.5em" height="1.5em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M15.502 1.94a.5.5 0 010 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 01.707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 00-.121.196l-.805 2.414a.25.25 0 00.316.316l2.414-.805a.5.5 0 00.196-.12l6.813-6.814z"/>
-                                            <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 002.5 15h11a1.5 1.5 0 001.5-1.5v-6a.5.5 0 00-1 0v6a.5.5 0 01-.5.5h-11a.5.5 0 01-.5-.5v-11a.5.5 0 01.5-.5H9a.5.5 0 000-1H2.5A1.5 1.5 0 001 2.5v11z" clip-rule="evenodd"/>
-                                        </svg>
-                                    </a>
-                                    <a href="{{ url('recipe_delete', {id: recipe.id}) }}" title="{{ 'recipe_delete'|trans }}" class="text-decoration-none">
-                                        <svg class="bi bi-trash-fill" width="1.5em" height="1.5em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" d="M2.5 1a1 1 0 00-1 1v1a1 1 0 001 1H3v9a2 2 0 002 2h6a2 2 0 002-2V4h.5a1 1 0 001-1V2a1 1 0 00-1-1H10a1 1 0 00-1-1H7a1 1 0 00-1 1H2.5zm3 4a.5.5 0 01.5.5v7a.5.5 0 01-1 0v-7a.5.5 0 01.5-.5zM8 5a.5.5 0 01.5.5v7a.5.5 0 01-1 0v-7A.5.5 0 018 5zm3 .5a.5.5 0 00-1 0v7a.5.5 0 001 0v-7z" clip-rule="evenodd"/>
-                                        </svg>
-                                    </a>
-                                </dd>
-                                <dt>{{ 'label_tags'|trans }}</dt>
-                                <dd>
-                                    {% for tag in recipe.getTags() %}
-                                        {#                                <span class="badge badge-pill badge-info">{{ tag.title }}</span>#}
-                                        <a href="#" class="badge badge-info">{{ tag.title }}</a>
-                                    {% endfor %}
-                                </dd>
-                            </dl>
-                        </div>
+
                     </div>
 
                     <div class="row bootstrap snippets">
@@ -116,6 +139,25 @@
                     </a>
                 </p>
             </div>
+
+            <div class="row flex-lg-nowrap justify-content-center">
+                <div class="col-12 col-lg-auto mb-3" style="width: 200px;">
+                    <div class="card p-3">
+                        <!-- Add icon library -->
+                        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+                        <div class="row">
+                            <p class="pl-3">
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star"></span>
+                                <span class="fa fa-star"></span>
+                            </p>
+                        </div>
+                        <p>Średnia ocena: 3/5</p>
+                        <button class="btn btn-info rounded-0">Oceń</button>
+                    </div>
+                </div>
         </div>
     </div>
 {% endblock %}
