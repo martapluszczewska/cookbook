@@ -11,6 +11,7 @@ use App\Form\RecipeType;
 use App\Form\CommentType;
 use App\Repository\RecipeRepository;
 use App\Repository\CommentRepository;
+use App\Repository\RatingRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
@@ -216,10 +217,11 @@ class RecipeController extends AbstractController
      *     requirements={"id": "[1-9]\d*"},
      * )
      */
-    public function show(Request $request, RecipeRepository $recipeRepository, CommentRepository $commentRepository, int $id): Response
+    public function show(Request $request, RecipeRepository $recipeRepository, CommentRepository $commentRepository, RatingRepository $ratingRepository, int $id): Response
     {
         $recipe = $recipeRepository->find($id);
         $form = null;
+        $rating = $ratingRepository->calculateAvg($recipe);
 
         if ($this->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
             $comment = new Comment();
@@ -243,8 +245,9 @@ class RecipeController extends AbstractController
             'recipe/show.html.twig',
             [
                 'recipe' => $recipe,
+                'rating' => $rating,
                 'comments' => $commentRepository->findForRecipe($id),
-                'comment_form' => is_null($form) ? null : $form->createView()
+                'comment_form' => is_null($form) ? null : $form->createView(),
             ]
         );
     }

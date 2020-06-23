@@ -101,13 +101,27 @@ class User implements UserInterface
     private $comments;
 
     /**
-     * @ORM\OneToOne(targetEntity=UserData::class, mappedBy="user", cascade={"persist", "remove"})
+     * @ORM\OneToOne(
+     *     targetEntity="App\Entity\UserData",
+     *     mappedBy="user",
+     *     cascade={"persist", "remove"}
+     * )
      */
     private $userdata;
+
+    /**
+     * @ORM\OneToMany(
+     *     targetEntity="App\Entity\Rating",
+     *     mappedBy="voter",
+     *     orphanRemoval=true
+     * )
+     */
+    private $ratings;
 
     public function __construct()
     {
         $this->comments = new ArrayCollection();
+        $this->ratings = new ArrayCollection();
     }
 
     /**
@@ -261,6 +275,37 @@ class User implements UserInterface
         $newUser = null === $userdata ? null : $this;
         if ($userdata->getUser() !== $newUser) {
             $userdata->setUser($newUser);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Rating[]
+     */
+    public function getRatings(): Collection
+    {
+        return $this->ratings;
+    }
+
+    public function addRating(Rating $rating): self
+    {
+        if (!$this->ratings->contains($rating)) {
+            $this->ratings[] = $rating;
+            $rating->setVoter($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRating(Rating $rating): self
+    {
+        if ($this->ratings->contains($rating)) {
+            $this->ratings->removeElement($rating);
+            // set the owning side to null (unless already changed)
+            if ($rating->getVoter() === $this) {
+                $rating->setVoter(null);
+            }
         }
 
         return $this;

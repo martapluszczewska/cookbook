@@ -6,7 +6,6 @@
 namespace App\Repository;
 
 use App\Entity\Comment;
-use App\Entity\Recipe;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\Query\Expr\Join;

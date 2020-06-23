@@ -106,8 +106,6 @@ class Tag
      *     targetEntity="App\Entity\Recipe",
      *     mappedBy="tags"
      * )
-     *
-     * @Assert\Type(type="Doctrine\Common\Collections\ArrayCollection")
      */
     private $recipes;
 

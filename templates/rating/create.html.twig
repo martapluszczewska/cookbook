@@ -1,0 +1,8 @@
+{% include 'default/_form.html.twig' with {
+    page_title: 'title.rating_new',
+    attr: {
+        method: 'POST',
+        action: url('rating_new', {id: recipe})
+    },
+    back_to_list_path: 'recipe_index',
+} %}

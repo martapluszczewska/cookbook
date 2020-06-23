@@ -294,6 +294,18 @@
                 <source>title_tag</source>
                 <target>%title%</target>
             </trans-unit>
+            <trans-unit id="title.rating_new">
+                <source>title.rating_new</source>
+                <target>Oceń</target>
+            </trans-unit>
+            <trans-unit id="message.rating_created_successfully">
+                <source>message.rating_created_successfully</source>
+                <target>Dodano ocenę!</target>
+            </trans-unit>
+            <trans-unit id="label_rating">
+                <source>label_rating</source>
+                <target>Ocena</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

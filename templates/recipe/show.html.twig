@@ -128,7 +128,7 @@
                                         {% if is_granted('IS_AUTHENTICATED_REMEMBERED') and comment_form is defined %}
                                                 {{ form_start(comment_form, { method: 'POST', action: url('recipe_show', {id: recipe.id}) }) }}
                                                 {{ form_widget(comment_form) }}
-                                                <input type="submit" value="{{ 'post'|trans }}" class="btn btn-info rounded-0 mb-3" />
+                                            <input type="submit" value="{{ 'post'|trans }}" class="btn btn-info rounded-0 mb-3" />
                                             {{ form_end(comment_form) }}
                                         {% else %}
                                             <p><a href="{{ url('app_login') }}">{{ 'message_sign_in'|trans }}</a>, {{ 'desctiption.login_to_comment'|trans }}.</p>
@@ -158,18 +158,21 @@
                         <!-- Add icon library -->
                         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
                         <div class="row">
+                            <p class="pl-3">Średnia ocena: {{ rating }}</p>
                             <p class="pl-3">
                                 <span class="fa fa-star checked"></span>
                                 <span class="fa fa-star checked"></span>
                                 <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star"></span>
-                                <span class="fa fa-star"></span>
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star checked"></span>
                             </p>
                         </div>
-                        <p>Średnia ocena: 3/5</p>
-                        <button class="btn btn-info rounded-0">Oceń</button>
+                        <a href="{{ url('rating_new', {id: recipe.id}) }}" title="{{ 'title.rating_new'|trans }}" class="btn btn-info rounded-0 my-2">
+                            {{ 'title.rating_new'|trans }}
+                        </a>
                     </div>
                 </div>
-        </div>
+            </div>
+
     </div>
 {% endblock %}

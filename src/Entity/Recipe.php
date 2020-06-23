@@ -119,6 +119,11 @@ class Recipe
     private $ingredients;
 
     /**
+     * @ORM\OneToMany(targetEntity=Rating::class, mappedBy="recipe", orphanRemoval=true)
+     */
+    private $ratings;
+
+    /**
      * Recipe constructor.
      */
     public function __construct()
@@ -126,6 +131,7 @@ class Recipe
         $this->tags = new ArrayCollection();
         $this->comments = new ArrayCollection();
         $this->ingredients = new ArrayCollection();
+        $this->ratings = new ArrayCollection();
     }
 
     /**
@@ -326,5 +332,46 @@ class Recipe
         if ($this->ingredients->contains($ingredient)) {
             $this->ingredients->removeElement($ingredient);
         }
+    }
+
+    /**
+     * Getter for ratings.
+     *
+     * @return Collection|Rating[]
+     */
+    public function getRatings(): Collection
+    {
+        return $this->ratings;
+    }
+
+    /**
+     * @param Rating $rating
+     * @return $this
+     */
+    public function addRating(Rating $rating): self
+    {
+        if (!$this->ratings->contains($rating)) {
+            $this->ratings[] = $rating;
+            $rating->setRecipe($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param Rating $rating
+     * @return $this
+     */
+    public function removeRating(Rating $rating): self
+    {
+        if ($this->ratings->contains($rating)) {
+            $this->ratings->removeElement($rating);
+            // set the owning side to null (unless already changed)
+            if ($rating->getRecipe() === $this) {
+                $rating->setRecipe(null);
+            }
+        }
+
+        return $this;
     }
 }
