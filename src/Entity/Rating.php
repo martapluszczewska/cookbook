@@ -6,6 +6,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Rating.
@@ -32,6 +33,12 @@ class Rating
      * @var int
      *
      * @ORM\Column(type="integer")
+     *
+     * @Assert\Type(type="int")
+     * @Assert\Range(
+     *      min = 0,
+     *      max = 5
+     * )
      */
     private $value;
 

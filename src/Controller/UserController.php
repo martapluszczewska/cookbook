@@ -40,10 +40,14 @@ class UserController extends AbstractController
      *     name="user_index",
      * )
      *
-     * @IsGranted("ROLE_USER")
+     * @IsGranted("ROLE_ADMIN")
      */
     public function index(Request $request, UserRepository $userRepository, PaginatorInterface $paginator): Response
     {
+        if (!$this->isGranted('ROLE_ADMIN')) {
+            return $this->redirectToRoute('recipe_index');
+        };
+
         $pagination = $paginator->paginate(
             $userRepository->queryAll(),
             $request->query->getInt('page', 1),

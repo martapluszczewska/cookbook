@@ -10,6 +10,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Recipe.
@@ -39,6 +40,13 @@ class Recipe
      *     type="string",
      *     length=255
      * )
+     *
+     * @Assert\Type(type="string")
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *     min="3",
+     *     max="255",
+     * )
      */
     private $title;
 
@@ -48,6 +56,8 @@ class Recipe
      * @var DateTimeInterface
      *
      * @ORM\Column(type="datetime")
+     *
+     * @Assert\Type(type="\DateTimeInterface")
      *
      * @Gedmo\Timestampable(on="create")
      */
@@ -59,6 +69,8 @@ class Recipe
      * @var DateTimeInterface
      *
      * @ORM\Column(type="datetime")
+     *
+     * @Assert\Type(type="\DateTimeInterface")
      *
      * @Gedmo\Timestampable(on="update")
      */
@@ -119,7 +131,11 @@ class Recipe
     private $ingredients;
 
     /**
-     * @ORM\OneToMany(targetEntity=Rating::class, mappedBy="recipe", orphanRemoval=true)
+     * @ORM\OneToMany(
+     *     targetEntity="App\Entity\Rating",
+     *     mappedBy="recipe",
+     *     orphanRemoval=true
+     * )
      */
     private $ratings;
 

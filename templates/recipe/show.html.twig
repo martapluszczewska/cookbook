@@ -115,14 +115,15 @@
                                                 <li class="media">
                                                     <small class="text-muted"><p class="m-0">{{ element.createdAt|date('Y/m/d') }}</p></small>
                                                 </li>
+                                                {% if is_granted('USER', element.author) or is_granted('ROLE_ADMIN') %}
                                                 <li class="media">
-{#                                                <a href="{{ url('recipe_delete', {id: recipe.id}) }}" title="{{ 'recipe_delete'|trans }}" class="text-decoration-none">#}
-                                                    <a href="#" class="float-right">
+                                                    <a href="{{ url('comment_delete', {id: element.id}) }}" title="{{ 'title_comment_delete'|trans }}" class="text-decoration-none">
                                                         <svg class="bi bi-trash-fill" width="1.5em" height="1.5em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                                             <path fill-rule="evenodd" d="M2.5 1a1 1 0 00-1 1v1a1 1 0 001 1H3v9a2 2 0 002 2h6a2 2 0 002-2V4h.5a1 1 0 001-1V2a1 1 0 00-1-1H10a1 1 0 00-1-1H7a1 1 0 00-1 1H2.5zm3 4a.5.5 0 01.5.5v7a.5.5 0 01-1 0v-7a.5.5 0 01.5-.5zM8 5a.5.5 0 01.5.5v7a.5.5 0 01-1 0v-7A.5.5 0 018 5zm3 .5a.5.5 0 00-1 0v7a.5.5 0 001 0v-7z" clip-rule="evenodd"/>
                                                         </svg>
                                                     </a>
                                                 </li>
+                                                {% endif %}
                                             </ul>
                                         {% endfor %}
                                         {% if is_granted('IS_AUTHENTICATED_REMEMBERED') and comment_form is defined %}

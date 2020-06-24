@@ -47,6 +47,10 @@ class RegistrationController extends AbstractController
      */
     public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, UserDataRepository $repository, UserRepository $userrepository, GuardAuthenticatorHandler $guardHandler, LoginFormAuthenticator $authenticator): Response
     {
+        if ($this->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            return $this->redirectToRoute('recipe_index');
+        };
+
         $user = new User();
         $userdata = new UserData();
         $form = $this->createForm(RegistrationFormType::class, $userdata);

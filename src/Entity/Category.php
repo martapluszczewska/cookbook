@@ -96,7 +96,10 @@ class Category
      *
      * @var string
      *
-     * @ORM\Column(type="string", length=64)
+     * @ORM\Column(
+     *     type="string",
+     *     length=64
+     * )
      *
      * @Assert\Type(type="string")
      * @Assert\Length(

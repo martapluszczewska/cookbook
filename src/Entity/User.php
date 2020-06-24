@@ -10,6 +10,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class User.
@@ -69,6 +70,11 @@ class User implements UserInterface
      *     length=180,
      *     unique=true,
      * )
+     *
+     * @Assert\NotBlank
+     * @Assert\Email(
+     *     message = "The email '{{ value }}' is not a valid email."
+     * )
      */
     private $email;
 
@@ -85,6 +91,12 @@ class User implements UserInterface
      * @var string
      *
      * @ORM\Column(type="string")
+     *
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *     min="8",
+     *     max="32",
+     * )
      */
     private $password;
 
@@ -262,6 +274,9 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @return UserData|null
+     */
     public function getUserdata(): ?UserData
     {
         return $this->userdata;

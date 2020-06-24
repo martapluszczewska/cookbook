@@ -52,6 +52,13 @@ class Comment
      *     type="string",
      *     length=255
      * )
+     *
+     * @Assert\Type(type="string")
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *     min="2",
+     *     max="255",
+     * )
      */
     private $text;
 

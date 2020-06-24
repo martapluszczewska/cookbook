@@ -306,6 +306,10 @@
                 <source>label_rating</source>
                 <target>Ocena</target>
             </trans-unit>
+            <trans-unit id="title_comment_delete">
+                <source>title_comment_delete</source>
+                <target>Usuń komentarz</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
