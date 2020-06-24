@@ -17,7 +17,7 @@
 
             <div class="col-12 col-lg-auto mb-3" style="width: 200px;">
                 <div class="card p-3">
-                    <p>{{ 'label_ingredients'|trans }}</p>
+                    <p><i class="fa fa-cutlery mr-2"></i>{{ 'label_ingredients'|trans }}</p>
                     <ul class="list-unstyled">
                         {% for ingredient in recipe.getIngredients() %}
                             <li>
@@ -35,6 +35,11 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-12 col-sm-auto mb-3">
+                                            <div class="text-center text-sm-left mb-2 mb-sm-0">
+                                                <h4 class="pt-sm-2 pb-1 text-nowrap">
+                                                    {{ recipe.title }}
+                                                </h4>
+                                            </div>
                                             <div class="mx-auto" style="width: 640px;">
                                                 <div class="d-flex justify-content-center align-items-center rounded" style="height: 230px; background-color: rgb(233, 236, 239);">
                                                     <span style="color: rgb(166, 168, 170); font: bold 8pt Arial;">640x230</span>
@@ -45,40 +50,36 @@
 {#                                           #}
 {#                                        </div>#}
                                     </div>
-                                    <div class="text-center text-sm-left mb-2 mb-sm-0">
-                                        <h4 class="pt-sm-2 pb-1 mb-0 text-nowrap">
-                                            {{ recipe.title }}
-                                        </h4>
-                                        <p class="mb-0">{{ recipe.category.title }}</p>
-                                    </div>
+                                    <h5>{{ 'label_description'|trans }}</h5>
+                                    <p>{{ recipe.description }}</p>
                                     <dl class="dl-horizontal">
                                         <dt>{{ 'label_id'|trans }}</dt>
                                         <dd>{{ recipe.id }}</dd>
-                                        <dt>{{ 'label_category'|trans }}</dt>
-                                        <dd><a href="url('category_show', {id: category.id})">{{  recipe.category.title }}</a></dd>
-                                        <dt>{{ 'label_created_at'|trans }}</dt>
+                                        <dt><i class="fa fa-folder mr-2"></i>{{ 'label_category'|trans }}</dt>
+                                        <dd><a href="{{ url('category_show', {id: recipe.category.id}) }}" class="text-info">{{ recipe.category.title }}</a></dd>
+                                        <dt><i class="fa fa-calendar mr-2"></i>{{ 'label_created_at'|trans }}</dt>
                                         <dd>{{ recipe.createdAt|date('Y/m/d') }}</dd>
-                                        <dt>{{ 'label_updated_at'|trans }}</dt>
+                                        <dt><i class="fa fa-calendar mr-2"></i>{{ 'label_updated_at'|trans }}</dt>
                                         <dd>{{ recipe.updatedAt|date('Y/m/d') }}</dd>
                                         {% if is_granted('ROLE_ADMIN') %}
                                         <dt>
-                                            {{ 'label_actions'|trans }}
+                                            <i class="fa fa-cog mr-2"></i>{{ 'label_actions'|trans }}
                                         </dt>
                                         <dd>
-                                            <a href="{{ url('recipe_edit', {id: recipe.id}) }}" title="{{ 'recipe_edit'|trans }}" class="text-decoration-none">
+                                            <a href="{{ url('recipe_edit', {id: recipe.id}) }}" title="{{ 'recipe_edit'|trans }}" class="text-info text-decoration-none">
                                                 <svg class="bi bi-pencil-square" width="1.5em" height="1.5em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                                     <path d="M15.502 1.94a.5.5 0 010 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 01.707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 00-.121.196l-.805 2.414a.25.25 0 00.316.316l2.414-.805a.5.5 0 00.196-.12l6.813-6.814z"/>
                                                     <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 002.5 15h11a1.5 1.5 0 001.5-1.5v-6a.5.5 0 00-1 0v6a.5.5 0 01-.5.5h-11a.5.5 0 01-.5-.5v-11a.5.5 0 01.5-.5H9a.5.5 0 000-1H2.5A1.5 1.5 0 001 2.5v11z" clip-rule="evenodd"/>
                                                 </svg>
                                             </a>
-                                            <a href="{{ url('recipe_delete', {id: recipe.id}) }}" title="{{ 'recipe_delete'|trans }}" class="text-decoration-none">
+                                            <a href="{{ url('recipe_delete', {id: recipe.id}) }}" title="{{ 'recipe_delete'|trans }}" class="text-info text-decoration-none">
                                                 <svg class="bi bi-trash-fill" width="1.5em" height="1.5em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                                     <path fill-rule="evenodd" d="M2.5 1a1 1 0 00-1 1v1a1 1 0 001 1H3v9a2 2 0 002 2h6a2 2 0 002-2V4h.5a1 1 0 001-1V2a1 1 0 00-1-1H10a1 1 0 00-1-1H7a1 1 0 00-1 1H2.5zm3 4a.5.5 0 01.5.5v7a.5.5 0 01-1 0v-7a.5.5 0 01.5-.5zM8 5a.5.5 0 01.5.5v7a.5.5 0 01-1 0v-7A.5.5 0 018 5zm3 .5a.5.5 0 00-1 0v7a.5.5 0 001 0v-7z" clip-rule="evenodd"/>
                                                 </svg>
                                             </a>
                                         </dd>
                                         {% endif %}
-                                        <dt>{{ 'label_tags'|trans }}</dt>
+                                        <dt><i class="fa fa-tags mr-2"></i>{{ 'label_tags'|trans }}</dt>
                                         <dd>
                                             {% for tag in recipe.getTags() %}
                                                 <a href="{{ url('tag_show', {id: tag.id}) }}" class="badge badge-info">{{ tag.title }}</a>
@@ -104,7 +105,16 @@
                                             <hr>
                                             <ul class="media-list px-0">
                                                 <li class="media">
-                                                    <small class="text-info">@{{ element.author.userdata.nick }}</small>
+                                                    <small class="text-info">
+                                                        {% if is_granted('USER', element.author) or is_granted('ROLE_ADMIN') %}
+                                                        <a href="{{ url('comment_delete', {id: element.id}) }}" title="{{ 'title_comment_delete'|trans }}" class="text-info text-decoration-none">
+                                                            <svg class="bi bi-trash-fill" width="1.5em" height="1.5em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                                <path fill-rule="evenodd" d="M2.5 1a1 1 0 00-1 1v1a1 1 0 001 1H3v9a2 2 0 002 2h6a2 2 0 002-2V4h.5a1 1 0 001-1V2a1 1 0 00-1-1H10a1 1 0 00-1-1H7a1 1 0 00-1 1H2.5zm3 4a.5.5 0 01.5.5v7a.5.5 0 01-1 0v-7a.5.5 0 01.5-.5zM8 5a.5.5 0 01.5.5v7a.5.5 0 01-1 0v-7A.5.5 0 018 5zm3 .5a.5.5 0 00-1 0v7a.5.5 0 001 0v-7z" clip-rule="evenodd"/>
+                                                            </svg>
+                                                        </a>
+                                                        {% endif %}
+                                                        @{{ element.author.userdata.nick }}
+                                                    </small>
                                                 </li>
                                                 <li class="media">
                                                     <div class="media-body">
@@ -117,15 +127,6 @@
                                                 <li class="media">
                                                     <small class="text-muted"><p class="m-0">{{ element.createdAt|date('Y/m/d') }}</p></small>
                                                 </li>
-                                                {% if is_granted('USER', element.author) or is_granted('ROLE_ADMIN') %}
-                                                <li class="media">
-                                                    <a href="{{ url('comment_delete', {id: element.id}) }}" title="{{ 'title_comment_delete'|trans }}" class="text-decoration-none">
-                                                        <svg class="bi bi-trash-fill" width="1.5em" height="1.5em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                                            <path fill-rule="evenodd" d="M2.5 1a1 1 0 00-1 1v1a1 1 0 001 1H3v9a2 2 0 002 2h6a2 2 0 002-2V4h.5a1 1 0 001-1V2a1 1 0 00-1-1H10a1 1 0 00-1-1H7a1 1 0 00-1 1H2.5zm3 4a.5.5 0 01.5.5v7a.5.5 0 01-1 0v-7a.5.5 0 01.5-.5zM8 5a.5.5 0 01.5.5v7a.5.5 0 01-1 0v-7A.5.5 0 018 5zm3 .5a.5.5 0 00-1 0v7a.5.5 0 001 0v-7z" clip-rule="evenodd"/>
-                                                        </svg>
-                                                    </a>
-                                                </li>
-                                                {% endif %}
                                             </ul>
                                         {% endfor %}
                                         {% if is_granted('IS_AUTHENTICATED_REMEMBERED') and comment_form is defined %}
@@ -161,14 +162,7 @@
                         <!-- Add icon library -->
                         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
                         <div class="row">
-                            <p class="pl-3">Średnia ocena: {{ rating }}</p>
-                            <p class="pl-3">
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                            </p>
+                            <p class="pl-3"><i class="fa fa-star mr-2"></i>{{ 'label_rating'|trans }}: {{ rating }}</p>
                         </div>
                         <a href="{{ url('rating_new', {id: recipe.id}) }}" title="{{ 'title.rating_new'|trans }}" class="btn btn-info rounded-0 my-2">
                             {{ 'title.rating_new'|trans }}

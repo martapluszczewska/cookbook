@@ -27,10 +27,11 @@ class RecipeFixtures extends AbstractBaseFixtures implements DependentFixtureInt
             $recipe->setCreatedAt($this->faker->dateTimeBetween('-100 days', '-1 days'));
             $recipe->setUpdatedAt($this->faker->dateTimeBetween('-100 days', '-1 days'));
             $recipe->setCategory($this->getRandomReference('categories'));
+            $recipe->setDescription($this->faker->paragraph);
 
             $tags = $this->getRandomReferences(
                 'tags',
-                $this->faker->numberBetween(0, 5)
+                $this->faker->numberBetween(3, 5)
             );
 
             foreach ($tags as $tag) {
@@ -39,7 +40,7 @@ class RecipeFixtures extends AbstractBaseFixtures implements DependentFixtureInt
 
             $ingredients = $this->getRandomReferences(
                 'ingredients',
-                $this->faker->numberBetween(0, 10)
+                $this->faker->numberBetween(6, 12)
             );
 
             foreach ($ingredients as $ingredient) {

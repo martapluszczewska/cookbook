@@ -318,6 +318,22 @@
                 <source>title_user_delete</source>
                 <target>Usuń użytkownika</target>
             </trans-unit>
+            <trans-unit id="sort_by">
+                <source>sort_by</source>
+                <target>SORTUJ WEDDŁUG</target>
+            </trans-unit>
+            <trans-unit id="title_photo_create">
+                <source>title_photo_create</source>
+                <target>Dodaj zdjęcie</target>
+            </trans-unit>
+            <trans-unit id="message.photo_created_successfully">
+                <source>message.photo_created_successfully</source>
+                <target>Dodano zdjęcie</target>
+            </trans-unit>
+            <trans-unit id="label_description">
+                <source>label_description</source>
+                <target>Przygotowanie</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

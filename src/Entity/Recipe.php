@@ -140,6 +140,25 @@ class Recipe
     private $ratings;
 
     /**
+     * Description.
+     *
+     * @var string
+     *
+     * @ORM\Column(
+     *     type="string",
+     *     length=512
+     * )
+     *
+     * @Assert\Type(type="string")
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *     min="255",
+     *     max="512",
+     * )
+     */
+    private $description;
+
+    /**
      * Recipe constructor.
      */
     public function __construct()
@@ -362,23 +381,19 @@ class Recipe
 
     /**
      * @param Rating $rating
-     * @return $this
      */
-    public function addRating(Rating $rating): self
+    public function addRating(Rating $rating): void
     {
         if (!$this->ratings->contains($rating)) {
             $this->ratings[] = $rating;
             $rating->setRecipe($this);
         }
-
-        return $this;
     }
 
     /**
      * @param Rating $rating
-     * @return $this
      */
-    public function removeRating(Rating $rating): self
+    public function removeRating(Rating $rating): void
     {
         if ($this->ratings->contains($rating)) {
             $this->ratings->removeElement($rating);
@@ -387,7 +402,25 @@ class Recipe
                 $rating->setRecipe(null);
             }
         }
+    }
 
-        return $this;
+    /**
+     * Getter for description.
+     *
+     * @return string|null
+     */
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    /**
+     * Setter for description.
+     *
+     * @param string $description
+     */
+    public function setDescription(string $description): void
+    {
+        $this->description = $description;
     }
 }

@@ -47,9 +47,9 @@ nav a:hover, .e-navlist a:hover {
     border-color: #343a40 !important;
 }
 
-.checked {
-    color: orange;
-}
+/*.checked {*/
+/*    color: orange;*/
+/*}*/
 
 header {
     /*-webkit-text-stroke: 2px black; !* width and color *!*/
@@ -69,7 +69,7 @@ header {
 /* Feature Box
 ---------------------*/
 .feature-box-1.recipe {
-    height: 400px;
+    min-height: 400px;
 }
 .feature-box-1.category {
     height: 180px;
@@ -166,6 +166,10 @@ header {
 .pink {
     color: #fc5356;
 }
+
+/*.photo {*/
+/*    background-image: url("../uploads/photos/");*/
+/*}*/
 
 /*.col-form-label {*/
 /*    display: none;*/

@@ -14,19 +14,20 @@
         <div class="row justify-content-center my-5">
             <div class="col-8">
                 {% if category is defined and category|length %}
+
+                    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+
                     <dl class="dl-horizontal">
                         <dt>{{ 'label_id'|trans }}</dt>
                         <dd>{{ category.id }}</dd>
-                        <dt>{{ 'label_created_at'|trans }}</dt>
+                        <dt><i class="fa fa-calendar mr-2"></i>{{ 'label_created_at'|trans }}</dt>
                         <dd>{{ category.createdAt|date('Y/m/d') }}</dd>
-                        <dt>{{ 'label_updated_at'|trans }}</dt>
+                        <dt><i class="fa fa-calendar mr-2"></i>{{ 'label_updated_at'|trans }}</dt>
                         <dd>{{ category.updatedAt|date('Y/m/d') }}</dd>
-                        <dt>{{ 'label_title'|trans }}</dt>
-                        <dd>{{  category.title }}</dd>
                         {% if is_granted('ROLE_ADMIN') %}
-                        <dt>{{ 'label_actions'|trans }}</dt>
+                        <dt><i class="fa fa-cog mr-2"></i>{{ 'label_actions'|trans }}</dt>
                         <dd>
-                            <a href="{{ url('category_edit', {id: category.id}) }}" title="{{ 'category_edit'|trans }}" class="text-decoration-none">
+                            <a href="{{ url('category_edit', {id: category.id}) }}" title="{{ 'category_edit'|trans }}" class="text-info text-decoration-none">
                                 <svg class="bi bi-pencil-square" width="1.5em" height="1.5em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M15.502 1.94a.5.5 0 010 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 01.707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 00-.121.196l-.805 2.414a.25.25 0 00.316.316l2.414-.805a.5.5 0 00.196-.12l6.813-6.814z"/>
                                     <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 002.5 15h11a1.5 1.5 0 001.5-1.5v-6a.5.5 0 00-1 0v6a.5.5 0 01-.5.5h-11a.5.5 0 01-.5-.5v-11a.5.5 0 01.5-.5H9a.5.5 0 000-1H2.5A1.5 1.5 0 001 2.5v11z" clip-rule="evenodd"/>

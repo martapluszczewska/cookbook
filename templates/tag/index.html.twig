@@ -16,13 +16,11 @@
                     <div class="col">
                         <div class="section-title text-center">
                             <h2>
-{#                                <a href="{{ url('tag_create') }}" class="title-add text-reset decoration-none">#}
-                                    {{ 'title_tag_list'|trans }}
-{#                                </a>#}
+                                {{ 'title_tag_list'|trans }}
                             </h2>
                             <div class="dropdown">
                                 <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    SORTUJ WEDŁUG
+                                    {{ 'sort_by'|trans }}
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                     <button class="dropdown-item" type="button">
@@ -53,8 +51,8 @@
                                 <div class="feature-box-1 category">
                                     <div class="feature-content">
                                         <h5>{{ tag.title }}</h5>
-                                        <p>{{ 'label_created_at'|trans }}: {{ tag.createdAt|date('Y/m/d') }}</p>
-                                        <p class="mb-3">{{ 'label_updated_at'|trans }}: {{ tag.updatedAt|date('Y/m/d') }}</p>
+                                        <p><i class="fa fa-calendar mr-2"></i>{{ 'label_created_at'|trans }}: {{ tag.createdAt|date('Y/m/d') }}</p>
+                                        <p class="mb-3"><i class="fa fa-calendar mr-2"></i>{{ 'label_updated_at'|trans }}: {{ tag.updatedAt|date('Y/m/d') }}</p>
                                     </div>
                                 </div>
                             </a>

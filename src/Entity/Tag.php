@@ -70,7 +70,7 @@ class Tag
      *
      * @Assert\Type(type="string")
      * @Assert\Length(
-     *     min="3",
+     *     min="2",
      *     max="64",
      * )
      *
@@ -91,7 +91,7 @@ class Tag
      * @Assert\Type(type="string")
      * @Assert\NotBlank
      * @Assert\Length(
-     *     min="3",
+     *     min="2",
      *     max="64",
      * )
      */
