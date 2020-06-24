@@ -60,6 +60,7 @@
                                         <dd>{{ recipe.createdAt|date('Y/m/d') }}</dd>
                                         <dt>{{ 'label_updated_at'|trans }}</dt>
                                         <dd>{{ recipe.updatedAt|date('Y/m/d') }}</dd>
+                                        {% if is_granted('ROLE_ADMIN') %}
                                         <dt>
                                             {{ 'label_actions'|trans }}
                                         </dt>
@@ -76,6 +77,7 @@
                                                 </svg>
                                             </a>
                                         </dd>
+                                        {% endif %}
                                         <dt>{{ 'label_tags'|trans }}</dt>
                                         <dd>
                                             {% for tag in recipe.getTags() %}

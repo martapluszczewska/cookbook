@@ -1,0 +1,83 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'title.user_list'|trans }}
+{% endblock %}
+
+{% block body %}
+
+    <div class="text-center pb-3">
+        <h2>{{ 'title_user_list'|trans }}</h2>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+
+                {% if pagination is defined and pagination|length %}
+
+                    <div class="navigation text-center">
+                        {{ knp_pagination_render(pagination) }}
+                    </div>
+
+                    <table class="table table-sm table-striped">
+                        <thead>
+                        <tr>
+                            <th>{{ knp_pagination_sortable(pagination,'label_id'|trans, 'user.id') }}</th>
+                            <th>{{ knp_pagination_sortable(pagination, 'label_firstName'|trans, 'userdata.firstName') }}</th>
+                            <th>{{ knp_pagination_sortable(pagination, 'label_lastName'|trans, 'userdata.lastName') }}</th>
+                            <th>{{ knp_pagination_sortable(pagination, 'label_nick'|trans, 'userdata.nick')  }}</th>
+                            <th>{{ knp_pagination_sortable(pagination, 'label.mail'|trans, 'user.email') }}</th>
+
+                            <th>{{ 'label_change_pass'|trans }}</th>
+                            <th>{{ 'label_change_data'|trans }}</th>
+                            <th>{{ 'label_delete'|trans }}</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        {% for user in pagination %}
+                            <tr>
+
+                                <td>{{ user.id }}</td>
+                                <td>{{ user.userdata.firstName }}</td>
+                                <td>{{ user.userdata.lastName }}</td>
+                                <td>{{ user.userdata.nick }}</td>
+                                <td>{{ user.email }}</td>
+
+                                <td>
+                                    <a href="{{ url('user_edit_pass', {id:user.id} )}}" title="{{ 'label_change_pass'|trans }}">
+                                        {{ 'label_change_pass'|trans   }}
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="{{ url('user_edit' , {id: user.userdata.id} ) }}" title="{{ 'label_change_data'|trans }}">
+                                        {{ 'label_change_data'|trans }}
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="{{ url('user_delete', {id:user.id} ) }}" title="{{ 'title_user_delete'|trans }}">
+                                        {{ 'title_user_delete'|trans }}
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
+                    <div class="navigation text-center">
+                        {{ knp_pagination_render(pagination) }}
+                    </div>
+
+                {% else %}
+                    <p>
+                        {{ 'message_empty_list'|trans }}
+                    </p>
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

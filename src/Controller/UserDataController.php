@@ -8,6 +8,7 @@ namespace App\Controller;
 use App\Entity\UserData;
 use App\Repository\UserDataRepository;
 use App\Form\UserDataType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -42,7 +43,10 @@ class UserDataController extends AbstractController
      *     name="user_edit",
      * )
      *
-     * @IsGranted("ROLE_USER")
+     * @IsGranted(
+     *     "USER",
+     *     subject="userdata"
+     * )
      */
     public function edit(Request $request, UserData $userdata, UserDataRepository $userDataRepository, int $id): Response
     {

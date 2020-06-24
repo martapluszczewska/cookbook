@@ -310,6 +310,14 @@
                 <source>title_comment_delete</source>
                 <target>Usuń komentarz</target>
             </trans-unit>
+            <trans-unit id="admin_panel">
+                <source>admin_panel</source>
+                <target>Panel administratora</target>
+            </trans-unit>
+            <trans-unit id="title_user_delete">
+                <source>title_user_delete</source>
+                <target>Usuń użytkownika</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

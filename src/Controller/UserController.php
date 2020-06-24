@@ -10,6 +10,7 @@ use App\Repository\UserRepository;
 use App\Form\UserPassType;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -44,10 +45,6 @@ class UserController extends AbstractController
      */
     public function index(Request $request, UserRepository $userRepository, PaginatorInterface $paginator): Response
     {
-        if (!$this->isGranted('ROLE_ADMIN')) {
-            return $this->redirectToRoute('recipe_index');
-        };
-
         $pagination = $paginator->paginate(
             $userRepository->queryAll(),
             $request->query->getInt('page', 1),
@@ -105,9 +102,9 @@ class UserController extends AbstractController
      *
      * @IsGranted(
      *     "USER",
-     *     subject="user",
+     *     subject="user"
      * )
-     * @IsGranted("ROLE_USER")
+     *
      */
     public function userEditPass(Request $request, User $user, UserRepository $userRepository, UserPasswordEncoderInterface $encoder, int $id): Response
     {
@@ -130,6 +127,54 @@ class UserController extends AbstractController
 
         return $this->render(
             'user/change_pass.html.twig',
+            [
+                'form' => $form->createView(),
+                'user' => $user,
+            ]
+        );
+    }
+
+    /**
+     * Delete action.
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
+     * @param \App\Entity\User $user User entity
+     * @param \App\Repository\UserRepository $userRepository User repository
+     *
+     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     *
+     * @Route(
+     *     "/{id}/delete",
+     *     methods={"GET", "DELETE"},
+     *     requirements={"id": "[1-9]\d*"},
+     *     name="user_delete",
+     * )
+     *
+     * @IsGranted(
+     *     "ROLE_ADMIN"
+     * )
+     */
+    public function delete(Request $request, User $user, UserRepository $userRepository): Response
+    {
+        $form = $this->createForm(FormType::class, $user, ['method' => 'DELETE']);
+        $form->handleRequest($request);
+
+        if ($request->isMethod('DELETE') && !$form->isSubmitted()) {
+            $form->submit($request->request->get($form->getName()));
+        }
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $userRepository->delete($user);
+            $this->addFlash('success', 'message_deleted_successfully');
+
+            return $this->redirectToRoute('user_index');
+        }
+
+        return $this->render(
+            'user/delete.html.twig',
             [
                 'form' => $form->createView(),
                 'user' => $user,

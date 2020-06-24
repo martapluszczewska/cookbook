@@ -16,9 +16,13 @@
                         <div class="col">
                             <div class="section-title text-center">
                                 <h2>
+                                    {% if is_granted('ROLE_ADMIN') %}
                                     <a href="{{ url('category_create') }}" class="title-add text-reset decoration-none">
                                         {{ 'title_category_list'|trans }}
                                     </a>
+                                    {% else %}
+                                        {{ 'title_category_list'|trans }}
+                                    {% endif %}
                                 </h2>
                                 <div class="dropdown">
                                     <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
