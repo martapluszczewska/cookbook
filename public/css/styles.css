@@ -167,9 +167,10 @@ header {
     color: #fc5356;
 }
 
-/*.photo {*/
-/*    background-image: url("../uploads/photos/");*/
-/*}*/
+.photo {
+    height: 300px;
+    background-color: #cccccc;
+}
 
 /*.col-form-label {*/
 /*    display: none;*/

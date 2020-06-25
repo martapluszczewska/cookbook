@@ -6,7 +6,7 @@
 namespace App\Controller;
 
 use App\Entity\Comment;
-use App\Repository\CommentRepository;
+use App\Service\CommentService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,11 +22,27 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 class CommentController extends AbstractController
 {
     /**
+     * Comment service.
+     *
+     * @var \App\Service\CommentService
+     */
+    private $commentService;
+
+    /**
+     * CommentController constructor.
+     *
+     * @param \App\Service\CommentService $commentService Comment service
+     */
+    public function __construct(CommentService $commentService)
+    {
+        $this->commentService = $commentService;
+    }
+
+    /**
      * Delete action.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
      * @param \App\Entity\Comment $comment Comment entity
-     * @param \App\Repository\CommentRepository $commentRepository Comment repository
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -40,10 +56,12 @@ class CommentController extends AbstractController
      *     name="comment_delete",
      * )
      *
-     * @IsGranted("ROLE_ADMIN")
-     * @IsGranted("ROLE_USER")
+     * @IsGranted(
+     *     "MANAGE",
+     *     subject="comment"
+     * )
      */
-    public function delete(Request $request, Comment $comment, CommentRepository $commentRepository): Response
+    public function delete(Request $request, Comment $comment): Response
     {
         $form = $this->createForm(FormType::class, $comment, ['method' => 'DELETE']);
         $form->handleRequest($request);
@@ -53,8 +71,8 @@ class CommentController extends AbstractController
         }
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $commentRepository->delete($comment);
-            $this->addFlash('success', 'message_deleted_successfully');
+            $this->commentService->delete($comment);
+            $this->addFlash('success', 'message_deleted_comment_successfully');
 
             return $this->redirectToRoute('recipe_index');
         }

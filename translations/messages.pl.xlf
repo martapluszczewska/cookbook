@@ -334,6 +334,10 @@
                 <source>label_description</source>
                 <target>Przygotowanie</target>
             </trans-unit>
+            <trans-unit id="message_deleted_comment_successfully">
+                <source>message_deleted_comment_successfully</source>
+                <target>Usunięto komentarz!</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

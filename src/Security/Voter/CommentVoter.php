@@ -72,7 +72,7 @@ class CommentVoter extends Voter
         // ... (check conditions and return true to grant permission) ...
         switch ($attribute) {
             case 'MANAGE':
-                if ($subject->getUser() === $user) {
+                if ($subject->getAuthor() === $user) {
                     return true;
                 }
                 break;

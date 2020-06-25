@@ -9,12 +9,11 @@
     {% if recipe is defined and recipe|length %}
 
     <div class="container">
-        <div class="text-center">
+        <div class="text-center pb-3">
             <h2>{{ 'title_recipe_details'|trans }}</h2>
             <h3>{{ 'title_recipe'|trans({'%title%': recipe.title|default('')}) }}</h3>
         </div>
         <div class="row flex-lg-nowrap justify-content-center">
-
             <div class="col-12 col-lg-auto mb-3" style="width: 200px;">
                 <div class="card p-3">
                     <p><i class="fa fa-cutlery mr-2"></i>{{ 'label_ingredients'|trans }}</p>
@@ -25,82 +24,57 @@
                             </li>
                         {% endfor %}
                     </ul>
+                    <hr>
+                    <ul class="nav flex-column">
+                        <li class="nav-item"><span class="mr-2">{{ 'label_id'|trans }}</span>{{ recipe.id }}</li>
+                        <li class="nav-item mb-1"><i class="fa fa-folder mr-2"></i><span><a href="{{ url('category_show', {id: recipe.category.id}) }}" class="text-info">{{ recipe.category.title }}</a></span></li>
+                        <li class="nav-item mb-1"><i class="fa fa-calendar mr-2"></i><span>{{ recipe.createdAt|date('Y/m/d') }}</span></li>
+                        <li class="nav-item"><i class="fa fa-calendar-check-o mr-2"></i><span>{{ recipe.updatedAt|date('Y/m/d') }}</span></li>
+                    </ul>
                 </div>
             </div>
 
             <div class="col">
-                    <div class="row">
-                        <div class="col mb-3">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-12 col-sm-auto mb-3">
-                                            <div class="text-center text-sm-left mb-2 mb-sm-0">
-                                                <h4 class="pt-sm-2 pb-1 text-nowrap">
-                                                    {{ recipe.title }}
-                                                </h4>
-                                            </div>
-                                            <div class="mx-auto" style="width: 640px;">
-                                                <div class="d-flex justify-content-center align-items-center rounded" style="height: 230px; background-color: rgb(233, 236, 239);">
-                                                    <span style="color: rgb(166, 168, 170); font: bold 8pt Arial;">640x230</span>
-                                                </div>
-                                            </div>
+                <div class="row">
+                    <div class="col mb-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-12 col-sm-auto mb-3">
+                                        <div class="text-center text-sm-left mb-2 mb-sm-0">
+                                            <h4 class="pt-sm-2 pb-1 text-nowrap">
+                                                {{ recipe.title }}
+                                            </h4>
                                         </div>
-{#                                        <div class="col d-flex flex-column flex-sm-row justify-content-between mb-3">#}
-{#                                           #}
-{#                                        </div>#}
                                     </div>
-                                    <h5>{{ 'label_description'|trans }}</h5>
-                                    <p>{{ recipe.description }}</p>
-                                    <dl class="dl-horizontal">
-                                        <dt>{{ 'label_id'|trans }}</dt>
-                                        <dd>{{ recipe.id }}</dd>
-                                        <dt><i class="fa fa-folder mr-2"></i>{{ 'label_category'|trans }}</dt>
-                                        <dd><a href="{{ url('category_show', {id: recipe.category.id}) }}" class="text-info">{{ recipe.category.title }}</a></dd>
-                                        <dt><i class="fa fa-calendar mr-2"></i>{{ 'label_created_at'|trans }}</dt>
-                                        <dd>{{ recipe.createdAt|date('Y/m/d') }}</dd>
-                                        <dt><i class="fa fa-calendar mr-2"></i>{{ 'label_updated_at'|trans }}</dt>
-                                        <dd>{{ recipe.updatedAt|date('Y/m/d') }}</dd>
-                                        {% if is_granted('ROLE_ADMIN') %}
-                                        <dt>
-                                            <i class="fa fa-cog mr-2"></i>{{ 'label_actions'|trans }}
-                                        </dt>
-                                        <dd>
-                                            <a href="{{ url('recipe_edit', {id: recipe.id}) }}" title="{{ 'recipe_edit'|trans }}" class="text-info text-decoration-none">
-                                                <svg class="bi bi-pencil-square" width="1.5em" height="1.5em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M15.502 1.94a.5.5 0 010 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 01.707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 00-.121.196l-.805 2.414a.25.25 0 00.316.316l2.414-.805a.5.5 0 00.196-.12l6.813-6.814z"/>
-                                                    <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 002.5 15h11a1.5 1.5 0 001.5-1.5v-6a.5.5 0 00-1 0v6a.5.5 0 01-.5.5h-11a.5.5 0 01-.5-.5v-11a.5.5 0 01.5-.5H9a.5.5 0 000-1H2.5A1.5 1.5 0 001 2.5v11z" clip-rule="evenodd"/>
-                                                </svg>
-                                            </a>
-                                            <a href="{{ url('recipe_delete', {id: recipe.id}) }}" title="{{ 'recipe_delete'|trans }}" class="text-info text-decoration-none">
-                                                <svg class="bi bi-trash-fill" width="1.5em" height="1.5em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                                    <path fill-rule="evenodd" d="M2.5 1a1 1 0 00-1 1v1a1 1 0 001 1H3v9a2 2 0 002 2h6a2 2 0 002-2V4h.5a1 1 0 001-1V2a1 1 0 00-1-1H10a1 1 0 00-1-1H7a1 1 0 00-1 1H2.5zm3 4a.5.5 0 01.5.5v7a.5.5 0 01-1 0v-7a.5.5 0 01.5-.5zM8 5a.5.5 0 01.5.5v7a.5.5 0 01-1 0v-7A.5.5 0 018 5zm3 .5a.5.5 0 00-1 0v7a.5.5 0 001 0v-7z" clip-rule="evenodd"/>
-                                                </svg>
-                                            </a>
-                                        </dd>
-                                        {% endif %}
-                                        <dt><i class="fa fa-tags mr-2"></i>{{ 'label_tags'|trans }}</dt>
-                                        <dd>
-                                            {% for tag in recipe.getTags() %}
-                                                <a href="{{ url('tag_show', {id: tag.id}) }}" class="badge badge-info">{{ tag.title }}</a>
-                                            {% endfor %}
-                                        </dd>
-                                    </dl>
                                 </div>
+                                <div class="row mx-1 mb-3">
+                                    <div class="photo d-flex justify-content-center align-items-center w-100">image</div>
+                                </div>
+                                    <h5>{{ 'label_description'|trans }}</h5>
+                                <p>{{ recipe.description }}</p>
+                                <dl class="row pl-3">
+                                    <dt class="mr-2"><i class="fa fa-tags"></i>{{ 'label_tags'|trans }}</dt>
+                                    <dd>
+                                        {% for tag in recipe.getTags() %}
+                                            <a href="{{ url('tag_show', {id: tag.id}) }}" class="badge badge-info">{{ tag.title }}</a>
+                                        {% endfor %}
+                                    </dd>
+                                </dl>
                             </div>
                         </div>
-
                     </div>
+                </div>
 
-                    <div class="row bootstrap snippets">
-                        <div class="col col-md-offset-2 col-sm-12">
+                <div class="row bootstrap snippets">
+                    <div class="col col-md-offset-2 col-sm-12">
+                        <div class="card p-3">
                             <div class="comment-wrapper">
                                 <div class="panel panel-info">
                                     <div class="panel-heading">
-                                        {{ 'comment_panel'|trans }}
+                                        <h5>{{ 'comment_panel'|trans }}</h5>
                                     </div>
                                     <div class="panel-body">
-
                                         {% for element in recipe.comments %}
                                             <hr>
                                             <ul class="media-list px-0">
@@ -129,6 +103,7 @@
                                                 </li>
                                             </ul>
                                         {% endfor %}
+                                        <hr>
                                         {% if is_granted('IS_AUTHENTICATED_REMEMBERED') and comment_form is defined %}
                                                 {{ form_start(comment_form, { method: 'POST', action: url('recipe_show', {id: recipe.id}) }) }}
                                                 {{ form_widget(comment_form) }}
@@ -141,35 +116,55 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
-                    </div>
-                {% else %}
-                    <p>
-                        {{ 'message_item_not_found'|trans }}
-                    </p>
-                {% endif %}
-                <p>
-                    <a href="{{ url('recipe_index') }}" title="{{ 'action_back_to_list'|trans }}" class="btn btn-dark rounded-0 my-2">
-                        {{ 'action_back_to_list'|trans }}
-                    </a>
-                </p>
-            </div>
-
-            <div class="row flex-lg-nowrap justify-content-center">
-                <div class="col-12 col-lg-auto mb-3" style="width: 200px;">
-                    <div class="card p-3">
-                        <!-- Add icon library -->
-                        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-                        <div class="row">
-                            <p class="pl-3"><i class="fa fa-star mr-2"></i>{{ 'label_rating'|trans }}: {{ rating }}</p>
-                        </div>
-                        <a href="{{ url('rating_new', {id: recipe.id}) }}" title="{{ 'title.rating_new'|trans }}" class="btn btn-info rounded-0 my-2">
-                            {{ 'title.rating_new'|trans }}
-                        </a>
                     </div>
                 </div>
             </div>
-
+            <div class="col-12 col-lg-auto mb-3 order-sm-2" style="width: 200px;">
+                <div class="card p-3">
+                    <!-- Add icon library -->
+                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+                    <dl class="row my-0">
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <dt class="col pr-0">
+                                <i class="fa fa-cog mr-2"></i>{{ 'label_actions'|trans }}
+                            </dt>
+                            <dd class="col pl-0">
+                                <a href="{{ url('recipe_edit', {id: recipe.id}) }}" title="{{ 'recipe_edit'|trans }}" class="text-info text-decoration-none">
+                                    <svg class="bi bi-pencil-square" width="1.5em" height="1.5em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M15.502 1.94a.5.5 0 010 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 01.707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 00-.121.196l-.805 2.414a.25.25 0 00.316.316l2.414-.805a.5.5 0 00.196-.12l6.813-6.814z"/>
+                                        <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 002.5 15h11a1.5 1.5 0 001.5-1.5v-6a.5.5 0 00-1 0v6a.5.5 0 01-.5.5h-11a.5.5 0 01-.5-.5v-11a.5.5 0 01.5-.5H9a.5.5 0 000-1H2.5A1.5 1.5 0 001 2.5v11z" clip-rule="evenodd"/>
+                                    </svg>
+                                </a>
+                                <a href="{{ url('recipe_delete', {id: recipe.id}) }}" title="{{ 'recipe_delete'|trans }}" class="text-info text-decoration-none">
+                                    <svg class="bi bi-trash-fill" width="1.5em" height="1.5em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" d="M2.5 1a1 1 0 00-1 1v1a1 1 0 001 1H3v9a2 2 0 002 2h6a2 2 0 002-2V4h.5a1 1 0 001-1V2a1 1 0 00-1-1H10a1 1 0 00-1-1H7a1 1 0 00-1 1H2.5zm3 4a.5.5 0 01.5.5v7a.5.5 0 01-1 0v-7a.5.5 0 01.5-.5zM8 5a.5.5 0 01.5.5v7a.5.5 0 01-1 0v-7A.5.5 0 018 5zm3 .5a.5.5 0 00-1 0v7a.5.5 0 001 0v-7z" clip-rule="evenodd"/>
+                                    </svg>
+                                </a>
+                            </dd>
+                        {% endif %}
+                    </dl>
+                    <div class="row">
+                        <p class="pl-3"><i class="fa fa-star mr-2"></i>{{ 'label_rating'|trans }}: {{ rating|round(2, 'floor') }}</p>
+                    </div>
+                    <a href="{{ url('rating_new', {id: recipe.id}) }}" title="{{ 'title.rating_new'|trans }}" class="btn btn-info rounded-0 my-2">
+                        {{ 'title.rating_new'|trans }}
+                    </a>
+                    <a href="{{ url('recipe_index') }}" title="{{ 'action_back_to_list'|trans }}" class="btn btn-dark rounded-0 my-2">
+                        {{ 'action_back_to_list'|trans }}
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <p>
+            {{ 'message_item_not_found'|trans }}
+        </p>
+        <p>
+            <a href="{{ url('recipe_index') }}" title="{{ 'action_back_to_list'|trans }}" class="btn btn-dark rounded-0 my-2">
+                {{ 'action_back_to_list'|trans }}
+            </a>
+        </p>
+        {% endif %}
     </div>
 {% endblock %}

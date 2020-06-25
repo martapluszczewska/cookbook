@@ -317,19 +317,23 @@
             <trans-unit id="sort_by">
                  <source>sort_by</source>
                  <target>SORT BY</target>
-             </trans-unit>
-             <trans-unit id="title_photo_create">
-                  <source>title_photo_create</source>
-                  <target>Add photo</target>
-              </trans-unit>
-              <trans-unit id="message.photo_created_successfully">
-                    <source>message.photo_created_successfully</source>
-                    <target>Photo added</target>
-                </trans-unit>
-                <trans-unit id="label_description">
-                    <source>label_description</source>
-                    <target>Recipe description</target>
-                </trans-unit>
+            </trans-unit>
+            <trans-unit id="title_photo_create">
+                 <source>title_photo_create</source>
+                 <target>Add photo</target>
+            </trans-unit>
+            <trans-unit id="message.photo_created_successfully">
+                 <source>message.photo_created_successfully</source>
+                 <target>Photo added</target>
+            </trans-unit>
+            <trans-unit id="label_description">
+                 <source>label_description</source>
+                 <target>Recipe description</target>
+            </trans-unit>
+            <trans-unit id="message_deleted_comment_successfully">
+                <source>message_deleted_comment_successfully</source>
+                <target>Comment deleted!</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
