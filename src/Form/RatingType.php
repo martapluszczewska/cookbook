@@ -9,8 +9,8 @@ use App\Entity\Rating;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\RangeType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormTypeExtensionInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Class RatingType.
@@ -23,7 +23,7 @@ class RatingType extends AbstractType
      * @see FormTypeExtensionInterface
      *
      * @param \Symfony\Component\Form\FormBuilderInterface $builder The form builder
-     * @param array $options The options
+     * @param array                                        $options The options
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -35,8 +35,8 @@ class RatingType extends AbstractType
                 'required' => true,
                 'attr' => [
                     'min' => 0,
-                    'max' => 5
-                ]
+                    'max' => 5,
+                ],
             ]
         );
 //        $builder->add(

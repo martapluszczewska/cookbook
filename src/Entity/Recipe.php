@@ -152,7 +152,7 @@ class Recipe
      * @Assert\Type(type="string")
      * @Assert\NotBlank
      * @Assert\Length(
-     *     min="255",
+     *     min="64",
      *     max="512",
      * )
      */
@@ -305,6 +305,7 @@ class Recipe
 
     /**
      * @param Comment $comment
+     *
      * @return $this
      */
     public function addComment(Comment $comment): self
@@ -319,6 +320,7 @@ class Recipe
 
     /**
      * @param Comment $comment
+     *
      * @return $this
      */
     public function removeComment(Comment $comment): self
@@ -360,7 +362,6 @@ class Recipe
      * Remove ingredient from collection.
      *
      * @param \App\Entity\Ingredient $ingredient Ingredient entity
-     * @param Ingredient $ingredient
      */
     public function removeIngredient(Ingredient $ingredient): void
     {

@@ -30,9 +30,16 @@ class RatingRepository extends ServiceEntityRepository
         parent::__construct($registry, Rating::class);
     }
 
+    /**
+     * @param Recipe $recipe
+     *
+     * @return float
+     *
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
     public function calculateAvg(Recipe $recipe): float
     {
-        $result=$this->createQueryBuilder('rating')
+        $result = $this->createQueryBuilder('rating')
             ->select('AVG(rating.value) AS ranking')
             ->where('rating.recipe = :recipe')
             ->setParameter('recipe', $recipe)

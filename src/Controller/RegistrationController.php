@@ -7,23 +7,21 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Entity\UserData;
+use App\Form\RegistrationFormType;
+use App\Security\LoginFormAuthenticator;
 use App\Service\RegistrationService;
 use App\Service\UserDataService;
 use App\Service\UserService;
-use App\Form\RegistrationFormType;
-use App\Security\LoginFormAuthenticator;
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
-use Doctrine\ORM\OptimisticLockException;
-use Doctrine\ORM\ORMException;
 
 /**
  * Class RegistrationController.
- *
- * @package App\Controller
  */
 class RegistrationController extends AbstractController
 {
@@ -53,6 +51,7 @@ class RegistrationController extends AbstractController
      *
      * @param \App\Service\RegistrationService $registrationService Registration service
      * @param \App\Service\UserDataService     $userDataService     User data service
+     * @param \App\Service\UserService         $userService         User service
      */
     public function __construct(RegistrationService $registrationService, UserDataService $userDataService, UserService $userService)
     {
@@ -64,12 +63,14 @@ class RegistrationController extends AbstractController
     /**
      * Register action.
      *
-     * @param Request $request
-     *
-     * @return Response
+     * @param Request                   $request
+     * @param GuardAuthenticatorHandler $guardHandler
+     * @param LoginFormAuthenticator    $authenticator
      *
      * @throws ORMException
      * @throws OptimisticLockException
+     *
+     * @return Response
      *
      * @Route(
      *     "/register",
@@ -80,7 +81,7 @@ class RegistrationController extends AbstractController
     {
         if ($this->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
             return $this->redirectToRoute('recipe_index');
-        };
+        }
 
         $user = new User();
         $userdata = new UserData();

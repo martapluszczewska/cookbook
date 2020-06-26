@@ -19,6 +19,11 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class IngredientRepository extends ServiceEntityRepository
 {
+    /**
+     * IngredientRepository constructor.
+     *
+     * @param ManagerRegistry $registry
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Ingredient::class);
@@ -27,7 +32,7 @@ class IngredientRepository extends ServiceEntityRepository
     /**
      * Save record.
      *
-     * @param \App\Entity\Ingredient $recipe Ingredient entity
+     * @param \App\Entity\Ingredient $ingredient Ingredient entity
      *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
@@ -41,7 +46,7 @@ class IngredientRepository extends ServiceEntityRepository
     /**
      * Delete record.
      *
-     * @param \App\Entity\Ingredient $recipe Ingredient entity
+     * @param \App\Entity\Ingredient $ingredient Ingredient entity
      *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException

@@ -7,8 +7,8 @@ namespace App\Service;
 
 use App\Entity\User;
 use App\Repository\UserRepository;
-use Knp\Component\Pager\PaginatorInterface;
 use Knp\Component\Pager\Pagination\PaginationInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
@@ -28,7 +28,6 @@ class UserService
      */
     private $passwordEncoder;
 
-
     /**
      * Paginator.
      *
@@ -39,8 +38,8 @@ class UserService
     /**
      * UserService constructor.
      *
-     * @param \App\Repository\UserRepository      $userRepository User repository
-     * @param \Knp\Component\Pager\PaginatorInterface $paginator          Paginator
+     * @param \App\Repository\UserRepository          $userRepository User repository
+     * @param \Knp\Component\Pager\PaginatorInterface $paginator      Paginator
      */
     public function __construct(UserRepository $userRepository, PaginatorInterface $paginator)
     {
@@ -101,5 +100,4 @@ class UserService
     {
         return $this->userRepository->findOneByEmail($email);
     }
-
 }

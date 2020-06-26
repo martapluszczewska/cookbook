@@ -14,8 +14,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Class RegistrationFormType
- * @package App\Form
+ * Class RegistrationFormType.
  */
 class RegistrationFormType extends AbstractType
 {
@@ -23,7 +22,7 @@ class RegistrationFormType extends AbstractType
      * Builds the form.
      *
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -49,12 +48,15 @@ class RegistrationFormType extends AbstractType
             'userdata',
             UserDataType::class,
             [
-                'label' => ' ',
+                'label' => false,
                 'required' => true,
             ]
         );
     }
 
+    /**
+     * @param OptionsResolver $resolver
+     */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([

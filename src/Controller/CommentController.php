@@ -7,12 +7,12 @@ namespace App\Controller;
 
 use App\Entity\Comment;
 use App\Service\CommentService;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * Class CommentController.
@@ -42,7 +42,7 @@ class CommentController extends AbstractController
      * Delete action.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
-     * @param \App\Entity\Comment $comment Comment entity
+     * @param \App\Entity\Comment                       $comment Comment entity
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *

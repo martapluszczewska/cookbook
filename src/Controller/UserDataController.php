@@ -6,13 +6,15 @@
 namespace App\Controller;
 
 use App\Entity\UserData;
-use App\Service\UserDataService;
 use App\Form\UserDataType;
+use App\Service\UserDataService;
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * Class UserDataController.
@@ -26,31 +28,31 @@ class UserDataController extends AbstractController
     /**
      * UserData service.
      *
-     * @var \App\Service\UserDataService
+     * @var UserDataService
      */
     private $userDataService;
 
     /**
      * UserDataController constructor.
      *
-     * @param \App\Service\UserDataService  $userDataService  UserData service
-     *
+     * @param UserDataService $userDataService UserData service
      */
     public function __construct(UserDataService $userDataService)
     {
-        $this->userDataService=$userDataService;
+        $this->userDataService = $userDataService;
     }
 
     /**
      * Change data action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
-     * @param \App\Entity\UserData $userdata UserData entity
+     * @param Request  $request  HTTP request
+     * @param UserData $userdata UserData entity
+     * @param int      $id
      *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     * @return Response HTTP response
      *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws ORMException
+     * @throws OptimisticLockException
      *
      * @Route(
      *     "/{id}/edit",
@@ -76,9 +78,9 @@ class UserDataController extends AbstractController
 
             if ($this->isGranted('ROLE_ADMIN')) {
                 return $this->redirectToRoute('user_index');
-            } else {
-                return $this->redirectToRoute('recipe_index');
             }
+
+            return $this->redirectToRoute('recipe_index');
         }
 
         return $this->render(

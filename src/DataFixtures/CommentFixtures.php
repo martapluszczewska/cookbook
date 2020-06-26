@@ -31,7 +31,7 @@ class CommentFixtures extends AbstractBaseFixtures implements DependentFixtureIn
             return $comment;
         });
 
-            $manager->flush();
+        $manager->flush();
     }
 
     /**
@@ -44,7 +44,7 @@ class CommentFixtures extends AbstractBaseFixtures implements DependentFixtureIn
     {
         return [
             RecipeFixtures::class,
-            UserFixtures::class
+            UserFixtures::class,
         ];
     }
 }

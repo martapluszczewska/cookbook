@@ -82,7 +82,7 @@ class Category
     /**
      * Recipes.
      *
-     * @var \Doctrine\Common\Collections\ArrayCollection|\App\Entity\Recipe[] $recipes Recipes
+     * @var \Doctrine\Common\Collections\ArrayCollection|\App\Entity\Recipe[] Recipes
      *
      * @ORM\OneToMany(
      *     targetEntity="App\Entity\Recipe",
@@ -201,6 +201,7 @@ class Category
 
     /**
      * @param Recipe $recipe
+     *
      * @return $this
      */
     public function addRecipe(Recipe $recipe): self
@@ -215,6 +216,7 @@ class Category
 
     /**
      * @param Recipe $recipe
+     *
      * @return $this
      */
     public function removeRecipe(Recipe $recipe): self
@@ -230,15 +232,23 @@ class Category
         return $this;
     }
 
+    /**
+     * Getter for code.
+     *
+     * @return string|null
+     */
     public function getCode(): ?string
     {
         return $this->code;
     }
 
-    public function setCode(string $code): self
+    /**
+     * Setter for code.
+     *
+     * @param string $code
+     */
+    public function setCode(string $code): void
     {
         $this->code = $code;
-
-        return $this;
     }
 }

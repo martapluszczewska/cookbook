@@ -130,6 +130,9 @@ class User implements UserInterface
      */
     private $ratings;
 
+    /**
+     * User constructor.
+     */
     public function __construct()
     {
         $this->comments = new ArrayCollection();
@@ -251,6 +254,11 @@ class User implements UserInterface
         return $this->comments;
     }
 
+    /**
+     * @param Comment $comment
+     *
+     * @return $this
+     */
     public function addComment(Comment $comment): self
     {
         if (!$this->comments->contains($comment)) {
@@ -261,6 +269,11 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @param Comment $comment
+     *
+     * @return $this
+     */
     public function removeComment(Comment $comment): self
     {
         if ($this->comments->contains($comment)) {
@@ -275,6 +288,8 @@ class User implements UserInterface
     }
 
     /**
+     * Getter for UserData.
+     *
      * @return UserData|null
      */
     public function getUserdata(): ?UserData
@@ -282,7 +297,12 @@ class User implements UserInterface
         return $this->userdata;
     }
 
-    public function setUserdata(?UserData $userdata): self
+    /**
+     * Setter for UserData.
+     *
+     * @param UserData|null $userdata
+     */
+    public function setUserdata(?UserData $userdata): void
     {
         $this->userdata = $userdata;
 
@@ -291,8 +311,6 @@ class User implements UserInterface
         if ($userdata->getUser() !== $newUser) {
             $userdata->setUser($newUser);
         }
-
-        return $this;
     }
 
     /**
@@ -303,6 +321,11 @@ class User implements UserInterface
         return $this->ratings;
     }
 
+    /**
+     * @param Rating $rating
+     *
+     * @return $this
+     */
     public function addRating(Rating $rating): self
     {
         if (!$this->ratings->contains($rating)) {
@@ -313,6 +336,11 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @param Rating $rating
+     *
+     * @return $this
+     */
     public function removeRating(Rating $rating): self
     {
         if ($this->ratings->contains($rating)) {

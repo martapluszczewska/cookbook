@@ -12,7 +12,7 @@ use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
- * Class CommentVoter
+ * Class CommentVoter.
  */
 class CommentVoter extends Voter
 {

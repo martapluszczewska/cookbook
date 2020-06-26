@@ -1,4 +1,7 @@
 <?php
+/**
+ * Ingredient fixtures.
+ */
 
 namespace App\DataFixtures;
 

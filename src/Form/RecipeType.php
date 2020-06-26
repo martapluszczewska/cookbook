@@ -7,13 +7,12 @@ namespace App\Form;
 
 use App\Entity\Category;
 use App\Entity\Recipe;
-use App\Entity\Ingredient;
-use App\Form\DataTransformer\TagsDataTransformer;
 use App\Form\DataTransformer\IngredientsDataTransformer;
+use App\Form\DataTransformer\TagsDataTransformer;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -39,7 +38,7 @@ class RecipeType extends AbstractType
     /**
      * RecipeType constructor.
      *
-     * @param \App\Form\DataTransformer\TagsDataTransformer $tagsDataTransformer Tags data transformer
+     * @param \App\Form\DataTransformer\TagsDataTransformer        $tagsDataTransformer        Tags data transformer
      * @param \App\Form\DataTransformer\IngredientsDataTransformer $ingredientsDataTransformer Ingredients data transformer
      */
     public function __construct(TagsDataTransformer $tagsDataTransformer, IngredientsDataTransformer $ingredientsDataTransformer)

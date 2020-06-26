@@ -5,19 +5,19 @@
 
 namespace App\Controller;
 
-use App\Entity\Recipe;
 use App\Entity\Comment;
-use App\Form\RecipeType;
+use App\Entity\Recipe;
 use App\Form\CommentType;
-use App\Service\RecipeService;
+use App\Form\RecipeType;
 use App\Service\CommentService;
 use App\Service\RatingService;
+use App\Service\RecipeService;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * Class RecipeController.
@@ -50,7 +50,9 @@ class RecipeController extends AbstractController
     /**
      * RecipeController constructor.
      *
-     * @param \App\Service\RecipeService $recipeService Recipe service
+     * @param \App\Service\RecipeService  $recipeService  Recipe service
+     * @param \App\Service\CommentService $commentService Comment service
+     * @param \App\Service\RatingService  $ratingService  Rating service
      */
     public function __construct(RecipeService $recipeService, CommentService $commentService, RatingService $ratingService)
     {
@@ -80,7 +82,7 @@ class RecipeController extends AbstractController
 
         $pagination = $this->recipeService->createPaginatedList(
             $request->query->getInt('page', 1),
-//            $this->getUser(),
+            //            $this->getUser(),
             $filters
         );
 //        $page = $request->query->getInt('page', 1);
@@ -95,8 +97,9 @@ class RecipeController extends AbstractController
     /**
      * Show action.
      *
-     * @param \App\Entity\Recipe $recipe Recipe entity
-     * @param int $id Element Id
+     * @param \App\Entity\Recipe                        $recipe  Recipe entity
+     * @param int                                       $id      Element Id
+     *
      * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
@@ -108,7 +111,7 @@ class RecipeController extends AbstractController
      *     requirements={"id": "[1-9]\d*"},
      * )
      */
-    public function show(Recipe $recipe, Request $request, int $id): Response
+    public function show(Recipe $recipe, int $id, Request $request): Response
     {
 //        $recipe = $this->recipeService->find($id);
         $form = null;
@@ -121,7 +124,6 @@ class RecipeController extends AbstractController
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
-
                 $comment->setRecipe($recipe);
                 $comment->setAuthor($this->getUser());
                 $this->commentService->save($comment);
@@ -137,7 +139,7 @@ class RecipeController extends AbstractController
             [
                 'recipe' => $recipe,
                 'rating' => $rating,
-//                'comments' => $this->commentService->findForRecipe($id),
+            //                'comments' => $this->commentService->findForRecipe($id),
                 'comment_form' => is_null($form) ? null : $form->createView(),
             ]
         );
@@ -184,7 +186,7 @@ class RecipeController extends AbstractController
      * Edit action.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
-     * @param \App\Entity\Recipe $recipe Recipe entity
+     * @param \App\Entity\Recipe                        $recipe  Recipe entity
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -225,7 +227,7 @@ class RecipeController extends AbstractController
      * Delete action.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
-     * @param \App\Entity\Recipe $recipe Recipe entity
+     * @param \App\Entity\Recipe                        $recipe  Recipe entity
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *

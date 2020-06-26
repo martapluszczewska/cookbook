@@ -7,8 +7,8 @@ namespace App\Repository;
 
 use App\Entity\Comment;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\Query\Expr\Join;
+use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * Class CommentRepository.
@@ -32,6 +32,7 @@ class CommentRepository extends ServiceEntityRepository
 
     /**
      * @param int $recipeId
+     *
      * @return array
      */
     public function findForRecipe(int $recipeId): array
@@ -43,6 +44,7 @@ class CommentRepository extends ServiceEntityRepository
             ->setParameter('recipeId', $recipeId)
             ->orderBy('c.createdAt', 'DESC')
             ->getQuery()->getResult();
+
         return $qb;
     }
 

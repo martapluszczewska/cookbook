@@ -334,6 +334,10 @@
                 <source>message_deleted_comment_successfully</source>
                 <target>Comment deleted!</target>
             </trans-unit>
+            <trans-unit id="desctiption.login_to_comment">
+               <source>desctiption.login_to_comment</source>
+               <target>to add a comment</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

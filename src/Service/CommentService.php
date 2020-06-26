@@ -23,7 +23,7 @@ class CommentService
     /**
      * CommentService constructor.
      *
-     * @param \App\Repository\CommentRepository      $commentRepository Comment repository
+     * @param \App\Repository\CommentRepository $commentRepository Comment repository
      */
     public function __construct(CommentRepository $commentRepository)
     {

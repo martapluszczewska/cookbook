@@ -2,12 +2,14 @@
 /**
  * Rating controller.
  */
+
 namespace App\Controller;
 
 use App\Entity\Rating;
 use App\Entity\Recipe;
 use App\Form\RatingType;
 use App\Service\RatingService;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -61,6 +63,10 @@ class RatingController extends AbstractController
      *     methods={"GET", "POST"},
      *     name="rating_new",
      * )
+     *
+     * @IsGranted(
+     *     "ROLE_USER"
+     * )
      */
     public function create(Recipe $recipe, Request $request, int $id): Response
     {
@@ -76,8 +82,10 @@ class RatingController extends AbstractController
             $this->ratingService->save($rating);
 //            $ratingRepository->save($rating);
             $this->addFlash('success', 'message.rating_created_successfully');
+
             return $this->redirectToRoute('recipe_show', ['id' => $id]);
         }
+
         return $this->render(
             'rating/create.html.twig',
             [

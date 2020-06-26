@@ -46,10 +46,10 @@ class RecipeService
     /**
      * RecipeService constructor.
      *
-     * @param \App\Repository\RecipeRepository      $recipeRepository Recipe repository
-     * @param \Knp\Component\Pager\PaginatorInterface $paginator          Paginator
-     * @param \App\Service\CategoryService            $categoryService Category service
-     * @param \App\Service\TagService                 $tagService      Tag service
+     * @param \App\Repository\RecipeRepository        $recipeRepository Recipe repository
+     * @param \Knp\Component\Pager\PaginatorInterface $paginator        Paginator
+     * @param \App\Service\CategoryService            $categoryService  Category service
+     * @param \App\Service\TagService                 $tagService       Tag service
      */
     public function __construct(RecipeRepository $recipeRepository, PaginatorInterface $paginator, CategoryService $categoryService, TagService $tagService)
     {
@@ -91,8 +91,8 @@ class RecipeService
     /**
      * Create paginated list.
      *
-     * @param int                                                 $page    Page number
-     * @param array
+     * @param int   $page    Page number
+     * @param array $filters
      *
      * @return \Knp\Component\Pager\Pagination\PaginationInterface Paginated list
      */
@@ -132,6 +132,4 @@ class RecipeService
     {
         $this->recipeRepository->delete($recipe);
     }
-
-
 }

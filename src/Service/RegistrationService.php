@@ -7,6 +7,9 @@ namespace App\Service;
 
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
+/**
+ * Class RegistrationService
+ */
 class RegistrationService
 {
     /**
@@ -19,7 +22,7 @@ class RegistrationService
     /**
      * RegistrationService constructor.
      *
-     * @param \Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface $passwordEncoder
+     * @param UserPasswordEncoderInterface $passwordEncoder
      */
     public function __construct(UserPasswordEncoderInterface $passwordEncoder)
     {
@@ -31,6 +34,7 @@ class RegistrationService
      *
      * @param $user
      * @param $form
+     *
      * @return string
      */
     public function encodingPassword($user, $form)

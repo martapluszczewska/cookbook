@@ -67,7 +67,7 @@ class TagRepository extends ServiceEntityRepository
     /**
      * Save record.
      *
-     * @param \App\Entity\Tag $recipe Tag entity
+     * @param \App\Entity\Tag $tag Tag entity
      *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
@@ -81,7 +81,7 @@ class TagRepository extends ServiceEntityRepository
     /**
      * Delete record.
      *
-     * @param \App\Entity\Tag $recipe Tag entity
+     * @param \App\Entity\Tag $tag Tag entity
      *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException

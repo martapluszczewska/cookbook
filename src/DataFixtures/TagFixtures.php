@@ -1,4 +1,7 @@
 <?php
+/**
+ * Tag fixtures.
+ */
 
 namespace App\DataFixtures;
 

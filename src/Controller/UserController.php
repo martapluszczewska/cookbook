@@ -6,14 +6,14 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Service\UserService;
 use App\Form\UserPassType;
+use App\Service\UserService;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
@@ -45,7 +45,7 @@ class UserController extends AbstractController
     /**
      * Index action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request            HTTP request
+     * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -83,8 +83,7 @@ class UserController extends AbstractController
      * )
      *
      * @IsGranted(
-     *     "USER",
-     *     subject="user"
+     *     "ROLE_USER"
      * )
      */
     public function show(User $user): Response
@@ -99,7 +98,9 @@ class UserController extends AbstractController
      * Change password action.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
-     * @param \App\Entity\User $user User entity
+     * @param \App\Entity\User                          $user    User entity
+     * @param int                                       $id
+     * @param UserPasswordEncoderInterface              $encoder
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -117,9 +118,8 @@ class UserController extends AbstractController
      *     "USER",
      *     subject="user"
      * )
-     *
      */
-    public function userEditPass(Request $request, User $user, UserPasswordEncoderInterface $encoder, int $id): Response
+    public function userEditPass(Request $request, User $user, int $id, UserPasswordEncoderInterface $encoder): Response
     {
 //        $user = $this->userService->find($id);
         $form = $this->createForm(UserPassType::class, $user, ['method' => 'PUT']);
@@ -151,8 +151,7 @@ class UserController extends AbstractController
      * Delete action.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
-     * @param \App\Entity\User $user User entity
-     * @param \App\Repository\UserRepository $userRepository User repository
+     * @param \App\Entity\User                          $user    User entity
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *

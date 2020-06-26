@@ -5,8 +5,8 @@
 
 namespace App\Service;
 
-use App\Entity\Recipe;
 use App\Entity\Rating;
+use App\Entity\Recipe;
 use App\Repository\RatingRepository;
 use Doctrine\ORM\NonUniqueResultException;
 
@@ -25,7 +25,7 @@ class RatingService
     /**
      * RatingService constructor.
      *
-     * @param \App\Repository\RatingRepository      $ratingRepository Rating repository
+     * @param \App\Repository\RatingRepository $ratingRepository Rating repository
      */
     public function __construct(RatingRepository $ratingRepository)
     {
@@ -49,7 +49,9 @@ class RatingService
      * Calculate average.
      *
      * @param Recipe $recipe
-     * @return int
+     *
+     * @return float
+     *
      * @throws NonUniqueResultException
      */
     public function calculateAvg(Recipe $recipe): float

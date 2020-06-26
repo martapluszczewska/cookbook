@@ -338,6 +338,10 @@
                 <source>message_deleted_comment_successfully</source>
                 <target>Usunięto komentarz!</target>
             </trans-unit>
+            <trans-unit id="Email">
+                <source>Email</source>
+                <target>Email</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

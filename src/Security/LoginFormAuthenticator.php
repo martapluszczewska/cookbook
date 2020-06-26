@@ -61,10 +61,10 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
     /**
      * LoginFormAuthenticator constructor.
      *
+     * @param \App\Service\UserService                                              $userService      User service
      * @param \Symfony\Component\Routing\Generator\UrlGeneratorInterface            $urlGenerator     URL generator
      * @param \Symfony\Component\Security\Csrf\CsrfTokenManagerInterface            $csrfTokenManager CSRF token manager
      * @param \Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface $passwordEncoder  Password encoder
-     * @param \App\Service\UserService $userService User service
      */
     public function __construct(UserService $userService, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $passwordEncoder)
     {
