@@ -53,17 +53,19 @@ class RegistrationController extends AbstractController
 
         $user = new User();
         $userdata = new UserData();
-        $form = $this->createForm(RegistrationFormType::class, $userdata);
+        $form = $this->createForm(RegistrationFormType::class, $user);
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
                 $user->setPassword($passwordEncoder->encodePassword(
                     $user,
-                    $form->get('user')->get('password')->getData()
+                    $form->get('password')->getData()
                 ));
-                $user->setEmail($form->get('user')->get('email')->getData());
                 $user->setUserData($userdata);
+                $userdata->setFirstName($form->get('userdata')->get('firstName')->getData());
+                $userdata->setLastName($form->get('userdata')->get('lastName')->getData());
+                $userdata->setNick($form->get('userdata')->get('nick')->getData());
                 $user->setRoles(['ROLE_USER']);
                 $userrepository->save($user);
                 $repository->save($userdata);
@@ -83,32 +85,6 @@ class RegistrationController extends AbstractController
                 );
             }
         }
-//        $user = new User();
-//        $form = $this->createForm(RegistrationFormType::class, $user);
-//        $form->handleRequest($request);
-//
-//        if ($form->isSubmitted() && $form->isValid()) {
-//            // encode the plain password
-//            $user->setPassword(
-//                $passwordEncoder->encodePassword(
-//                    $user,
-//                    $form->get('plainPassword')->getData()
-//                )
-//            );
-//
-//            $entityManager = $this->getDoctrine()->getManager();
-//            $entityManager->persist($user);
-//            $entityManager->flush();
-//
-//            // do anything else you need here, like send an email
-//
-//            return $guardHandler->authenticateUserAndHandleSuccess(
-//                $user,
-//                $request,
-//                $authenticator,
-//                'main' // firewall name in security.yaml
-//            );
-//        }
 
         return $this->render('registration/register.html.twig', [
             'form' => $form->createView(),

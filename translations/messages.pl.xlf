@@ -320,7 +320,7 @@
             </trans-unit>
             <trans-unit id="sort_by">
                 <source>sort_by</source>
-                <target>SORTUJ WEDDŁUG</target>
+                <target>SORTUJ WEDŁUG</target>
             </trans-unit>
             <trans-unit id="title_photo_create">
                 <source>title_photo_create</source>

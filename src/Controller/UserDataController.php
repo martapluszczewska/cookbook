@@ -58,7 +58,11 @@ class UserDataController extends AbstractController
             $userDataRepository->save($userdata);
             $this->addFlash('success', 'message_updated_successfully');
 
-            return $this->redirectToRoute('user_index');
+            if ($this->isGranted('ROLE_ADMIN')) {
+                return $this->redirectToRoute('user_index');
+            } else {
+                return $this->redirectToRoute('recipe_index');
+            }
         }
 
         return $this->render(

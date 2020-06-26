@@ -71,7 +71,10 @@ class UserController extends AbstractController
      *     requirements={"id": "[1-9]\d*"},
      * )
      *
-     * @IsGranted("ROLE_USER")
+     * @IsGranted(
+     *     "USER",
+     *     subject="user"
+     * )
      */
     public function show(User $user): Response
     {
