@@ -74,8 +74,17 @@ class RecipeController extends AbstractController
      */
     public function index(Request $request): Response
     {
-        $page = $request->query->getInt('page', 1);
-        $pagination = $this->recipeService->createPaginatedList($page);
+        $filters = [];
+        $filters['category_id'] = $request->query->getInt('filters_category_id');
+        $filters['tag_id'] = $request->query->getInt('filters_tag_id');
+
+        $pagination = $this->recipeService->createPaginatedList(
+            $request->query->getInt('page', 1),
+//            $this->getUser(),
+            $filters
+        );
+//        $page = $request->query->getInt('page', 1);
+//        $pagination = $this->recipeService->createPaginatedList($page);
 
         return $this->render(
             'recipe/index.html.twig',

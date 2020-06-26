@@ -49,6 +49,7 @@ class RecipeService
      * @param \App\Repository\RecipeRepository      $recipeRepository Recipe repository
      * @param \Knp\Component\Pager\PaginatorInterface $paginator          Paginator
      * @param \App\Service\CategoryService            $categoryService Category service
+     * @param \App\Service\TagService                 $tagService      Tag service
      */
     public function __construct(RecipeRepository $recipeRepository, PaginatorInterface $paginator, CategoryService $categoryService, TagService $tagService)
     {
@@ -56,20 +57,51 @@ class RecipeService
         $this->paginator = $paginator;
         $this->categoryService = $categoryService;
         $this->tagService = $tagService;
+    }
 
+    /**
+     * Prepare filters for the recipes list.
+     *
+     * @param array $filters Raw filters from request
+     *
+     * @return array Result array of filters
+     */
+    private function prepareFilters(array $filters): array
+    {
+        $resultFilters = [];
+        if (isset($filters['category_id']) && is_numeric($filters['category_id'])) {
+            $category = $this->categoryService->findOneById(
+                $filters['category_id']
+            );
+            if (null !== $category) {
+                $resultFilters['category'] = $category;
+            }
+        }
+
+        if (isset($filters['tag_id']) && is_numeric($filters['tag_id'])) {
+            $tag = $this->tagService->findOneById($filters['tag_id']);
+            if (null !== $tag) {
+                $resultFilters['tag'] = $tag;
+            }
+        }
+
+        return $resultFilters;
     }
 
     /**
      * Create paginated list.
      *
-     * @param int $page Page number
+     * @param int                                                 $page    Page number
+     * @param array
      *
      * @return \Knp\Component\Pager\Pagination\PaginationInterface Paginated list
      */
-    public function createPaginatedList(int $page): PaginationInterface
+    public function createPaginatedList(int $page, array $filters = []): PaginationInterface
     {
+        $filters = $this->prepareFilters($filters);
+
         return $this->paginator->paginate(
-            $this->recipeRepository->queryAll(),
+            $this->recipeRepository->queryAll($filters),
             $page,
             RecipeRepository::PAGINATOR_ITEMS_PER_PAGE
         );
@@ -100,4 +132,6 @@ class RecipeService
     {
         $this->recipeRepository->delete($recipe);
     }
+
+
 }

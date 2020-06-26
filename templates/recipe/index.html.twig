@@ -28,6 +28,7 @@
                                 <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     {{ 'sort_by'|trans }}
                                 </button>
+
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                     <button class="dropdown-item" type="button">
                                         {{ knp_pagination_sortable(pagination, 'label_id'|trans, 'recipe.id') }}
@@ -66,13 +67,22 @@
                                 </div>
                                 <div class="feature-content">
                                     <h5>{{ recipe.title }}</h5>
-                                    <p><i class="fa fa-folder mr-2"></i><span class="font-weight-bold">{{ 'label_category'|trans }}:</span> {{ recipe.category.title }}</p>
+                                    <p><i class="fa fa-folder mr-2"></i><span class="font-weight-bold">{{ 'label_category'|trans }}:</span>
+                                        <a href="{{ url('recipe_index', {'filters.category_id' : recipe.category.id}) }}" title="{{ recipe.category.title }}">
+                                            {{ recipe.category.title }}
+                                        </a></p>
                                     <p><i class="fa fa-calendar mr-2"></i><span class="font-weight-bold">{{ 'label_created_at'|trans }}:</span> {{ recipe.createdAt|date('Y/m/d') }}</p>
                                     <p class="mb-3"><i class="fa fa-calendar mr-2"></i><span class="font-weight-bold">{{ 'label_updated_at'|trans }}:</span> {{ recipe.updatedAt|date('Y/m/d') }}</p>
                                     <i class="fa fa-tags"></i>
-                                    {% for tag in recipe.getTags() %}
-                                        <a href="#" class="badge badge-dark">{{ tag.title }}</a>
-                                    {% endfor %}
+                                    {% if recipe.tags is defined and recipe.tags|length %}
+                                        {% for tag in recipe.tags %}
+                                            <a href="{{ url('recipe_index', {'filters.tag_id' : tag.id}) }}" class="badge badge-dark" title="{{ tag.title }}">
+                                                {{ tag.title }}
+                                            </a>
+                                        {% endfor %}
+                                    {% else %}
+                                        &nbsp;
+                                    {% endif %}
                                 </div>
                             </div>
                         </a>

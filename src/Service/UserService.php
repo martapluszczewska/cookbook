@@ -89,4 +89,17 @@ class UserService
     {
         $this->userRepository->delete($user);
     }
+
+    /**
+     * Find one by.
+     *
+     * @param string $email user email
+     *
+     * @return \App\Entity\User|null User entity
+     */
+    public function findOneByEmail(string $email): ?User
+    {
+        return $this->userRepository->findOneByEmail($email);
+    }
+
 }
