@@ -6,6 +6,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -13,6 +14,11 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Entity(repositoryClass="App\Repository\UserDataRepository")
  * @ORM\Table(name="user_data")
+ * @UniqueEntity(
+ *     "nick",
+ *     errorPath="nick",
+ *     message="Ten nick już istnieje!"
+ * )
  */
 class UserData
 {

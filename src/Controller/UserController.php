@@ -6,9 +6,8 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Repository\UserRepository;
+use App\Service\UserService;
 use App\Form\UserPassType;
-use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
@@ -27,11 +26,26 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class UserController extends AbstractController
 {
     /**
+     * User service.
+     *
+     * @var \App\Service\UserService
+     */
+    private $userService;
+
+    /**
+     * UserController constructor.
+     *
+     * @param \App\Service\UserService $userService User service
+     */
+    public function __construct(UserService $userService)
+    {
+        $this->userService = $userService;
+    }
+
+    /**
      * Index action.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request            HTTP request
-     * @param \App\Repository\UserRepository        $userRepository User repository
-     * @param \Knp\Component\Pager\PaginatorInterface   $paginator          Paginator
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -43,13 +57,10 @@ class UserController extends AbstractController
      *
      * @IsGranted("ROLE_ADMIN")
      */
-    public function index(Request $request, UserRepository $userRepository, PaginatorInterface $paginator): Response
+    public function index(Request $request): Response
     {
-        $pagination = $paginator->paginate(
-            $userRepository->queryAll(),
-            $request->query->getInt('page', 1),
-            UserRepository::PAGINATOR_ITEMS_PER_PAGE
-        );
+        $page = $request->query->getInt('page', 1);
+        $pagination = $this->userService->createPaginatedList($page);
 
         return $this->render(
             'user/index.html.twig',
@@ -89,7 +100,6 @@ class UserController extends AbstractController
      *
      * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
      * @param \App\Entity\User $user User entity
-     * @param \App\Repository\UserRepository $userRepository User repository
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -109,9 +119,9 @@ class UserController extends AbstractController
      * )
      *
      */
-    public function userEditPass(Request $request, User $user, UserRepository $userRepository, UserPasswordEncoderInterface $encoder, int $id): Response
+    public function userEditPass(Request $request, User $user, UserPasswordEncoderInterface $encoder, int $id): Response
     {
-        $user = $userRepository->find($id);
+//        $user = $userRepository->find($id);
         $form = $this->createForm(UserPassType::class, $user, ['method' => 'PUT']);
         $form->handleRequest($request);
 
@@ -122,7 +132,7 @@ class UserController extends AbstractController
                     $form->get('password')->getData()
                 )
             );
-            $userRepository->save($user);
+            $this->userService->save($user);
             $this->addFlash('success', 'message_updated_successfully');
 
             return $this->redirectToRoute('user_show', ['id' => $id]);
@@ -160,7 +170,7 @@ class UserController extends AbstractController
      *     "ROLE_ADMIN"
      * )
      */
-    public function delete(Request $request, User $user, UserRepository $userRepository): Response
+    public function delete(Request $request, User $user): Response
     {
         $form = $this->createForm(FormType::class, $user, ['method' => 'DELETE']);
         $form->handleRequest($request);
@@ -170,7 +180,7 @@ class UserController extends AbstractController
         }
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $userRepository->delete($user);
+            $this->userService->delete($user);
             $this->addFlash('success', 'message_deleted_successfully');
 
             return $this->redirectToRoute('user_index');
