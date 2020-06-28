@@ -159,6 +159,11 @@ class Recipe
     private $description;
 
     /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $rating;
+
+    /**
      * Recipe constructor.
      */
     public function __construct()
@@ -423,5 +428,17 @@ class Recipe
     public function setDescription(string $description): void
     {
         $this->description = $description;
+    }
+
+    public function getRating(): ?float
+    {
+        return $this->rating;
+    }
+
+    public function setRating(?float $rating): self
+    {
+        $this->rating = $rating;
+
+        return $this;
     }
 }

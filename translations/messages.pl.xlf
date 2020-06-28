@@ -176,7 +176,7 @@
             </trans-unit>
             <trans-unit id="message.comment_created_successfully">
                 <source>message.comment_created_successfully</source>
-                <target>Utworzono komentarz!</target>
+                <target>Utworzono komentarz oraz ocenę!</target>
             </trans-unit>
             <trans-unit id="title_recipe_edit">
                 <source>title_recipe_edit</source>
@@ -298,10 +298,6 @@
                 <source>title.rating_new</source>
                 <target>Oceń</target>
             </trans-unit>
-            <trans-unit id="message.rating_created_successfully">
-                <source>message.rating_created_successfully</source>
-                <target>Dodano ocenę!</target>
-            </trans-unit>
             <trans-unit id="label_rating">
                 <source>label_rating</source>
                 <target>Ocena</target>
@@ -341,6 +337,10 @@
             <trans-unit id="Email">
                 <source>Email</source>
                 <target>Email</target>
+            </trans-unit>
+            <trans-unit id="message.access_denied">
+               <source>message.access_denied</source>
+               <target>Brak dostępu!</target>
             </trans-unit>
         </body>
     </file>

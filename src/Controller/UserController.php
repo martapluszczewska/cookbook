@@ -7,6 +7,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserPassType;
+use App\Form\UserType;
 use App\Service\UserService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -171,7 +172,7 @@ class UserController extends AbstractController
      */
     public function delete(Request $request, User $user): Response
     {
-        $form = $this->createForm(FormType::class, $user, ['method' => 'DELETE']);
+        $form = $this->createForm(UserType::class, $user, ['method' => 'DELETE']);
         $form->handleRequest($request);
 
         if ($request->isMethod('DELETE') && !$form->isSubmitted()) {
@@ -180,7 +181,7 @@ class UserController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->userService->delete($user);
-            $this->addFlash('success', 'message_deleted_successfully');
+            $this->addFlash('success', 'message.deleted_successfully');
 
             return $this->redirectToRoute('user_index');
         }

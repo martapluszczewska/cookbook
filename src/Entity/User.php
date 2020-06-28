@@ -107,7 +107,8 @@ class User implements UserInterface
      *
      * @ORM\OneToMany(
      *     targetEntity="App\Entity\Comment",
-     *     mappedBy="author"
+     *     mappedBy="author",
+     *     orphanRemoval=true
      * )
      */
     private $comments;
@@ -116,6 +117,7 @@ class User implements UserInterface
      * @ORM\OneToOne(
      *     targetEntity="App\Entity\UserData",
      *     mappedBy="user",
+     *     orphanRemoval=true,
      *     cascade={"persist", "remove"}
      * )
      */

@@ -46,7 +46,7 @@
                                         {{ knp_pagination_sortable(pagination, 'label_category'|trans, 'category.title') }}
                                     </button>
                                     <button class="dropdown-item" type="button">
-                                        {{ knp_pagination_sortable(pagination, 'label_rating'|trans, 'ranking') }}
+                                        {{ knp_pagination_sortable(pagination, 'label_rating'|trans, 'recipe.rating') }}
                                     </button>
                                 </div>
                             </div>
@@ -67,6 +67,7 @@
                                 </div>
                                 <div class="feature-content">
                                     <h5>{{ recipe.title }}</h5>
+                                    <p><i class="fa fa-star mr-2"></i>{{ 'label_rating'|trans }}: {{ recipe.rating|round(2, 'floor') }}</p>
                                     <p><i class="fa fa-folder mr-2"></i><span class="font-weight-bold">{{ 'label_category'|trans }}:</span>
                                         <a href="{{ url('recipe_index', {'filters.category_id' : recipe.category.id}) }}" title="{{ recipe.category.title }}">
                                             {{ recipe.category.title }}

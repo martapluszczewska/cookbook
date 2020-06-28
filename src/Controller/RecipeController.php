@@ -9,6 +9,7 @@ use App\Entity\Comment;
 use App\Entity\Recipe;
 use App\Form\CommentType;
 use App\Form\RecipeType;
+use App\Form\CommentRatingForm;
 use App\Service\CommentService;
 use App\Service\RatingService;
 use App\Service\RecipeService;
@@ -82,15 +83,38 @@ class RecipeController extends AbstractController
 
         $pagination = $this->recipeService->createPaginatedList(
             $request->query->getInt('page', 1),
-            //            $this->getUser(),
             $filters
         );
-//        $page = $request->query->getInt('page', 1);
-//        $pagination = $this->recipeService->createPaginatedList($page);
 
         return $this->render(
             'recipe/index.html.twig',
             ['pagination' => $pagination]
+        );
+    }
+
+    /**
+     * IndexByRating action.
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request   HTTP request
+     *
+     * @param \Knp\Component\Pager\PaginatorInterface   $paginator Paginator
+     *
+     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     *
+     * @Route(
+     *     "/rating_sort",
+     *     name="recipe_index_rating",
+     * )
+     */
+    public function index_rating(Recipe $recipe, Request $request): Response
+    {
+        $pagination = $this->recipeService->queryAllByRating();
+
+        return $this->render(
+            'recipe/index.html.twig',
+            [
+                'pagination' => $pagination
+            ]
         );
     }
 
@@ -113,32 +137,37 @@ class RecipeController extends AbstractController
      */
     public function show(Recipe $recipe, int $id, Request $request): Response
     {
-//        $recipe = $this->recipeService->find($id);
-        $form = null;
-        $rating = $this->ratingService->calculateAvg($recipe);
+        $form = $this->createForm(CommentRatingForm::class);
+        $form->handleRequest($request);
 
-        if ($this->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
-            $comment = new Comment();
+        if ($form->isSubmitted() && $form->isValid()) {
+            $formData = $form->getData();
+            $mark = $formData['value'];
+            $comment = $formData['text'];
 
-            $form = $this->createForm(CommentType::class, $comment);
-            $form->handleRequest($request);
+            $comment->setRecipe($recipe);
+            $comment->setAuthor($this->getUser());
+            $this->commentService->save($comment);
 
-            if ($form->isSubmitted() && $form->isValid()) {
-                $comment->setRecipe($recipe);
-                $comment->setAuthor($this->getUser());
-                $this->commentService->save($comment);
+            $mark->setRecipe($recipe);
+            $mark->setVoter($this->getUser());
 
-                $this->addFlash('success', 'message.comment_created_successfully');
+            $this->ratingService->save($mark);
 
-                return $this->redirectToRoute('recipe_show', ['id' => $id]);
-            }
+            $rating = $this->ratingService->calculateAvg($recipe);
+            $recipe->setRating($rating);
+
+            $this->recipeService->save($recipe);
+
+            $this->addFlash('success', 'message.comment_created_successfully');
+
+            return $this->redirectToRoute('recipe_show', ['id' => $recipe->getId()]);
         }
 
         return $this->render(
             'recipe/show.html.twig',
             [
                 'recipe' => $recipe,
-                'rating' => $rating,
             //                'comments' => $this->commentService->findForRecipe($id),
                 'comment_form' => is_null($form) ? null : $form->createView(),
             ]

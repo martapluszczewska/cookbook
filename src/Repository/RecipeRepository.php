@@ -82,7 +82,7 @@ class RecipeRepository extends ServiceEntityRepository
     {
         $queryBuilder = $this->getOrCreateQueryBuilder()
             ->select(
-                'partial recipe.{id, createdAt, updatedAt, title}',
+                'partial recipe.{id, createdAt, updatedAt, title, rating}',
                 'partial category.{id, title}',
                 'partial tags.{id, title}'
             )
@@ -93,6 +93,19 @@ class RecipeRepository extends ServiceEntityRepository
         $queryBuilder = $this->applyFiltersToList($queryBuilder, $filters);
 
         return $queryBuilder;
+    }
+
+    /**
+     * Query all records order by rating.
+     *
+     * @return \Doctrine\ORM\QueryBuilder Query builder
+     */
+    public function queryAllByRating(): QueryBuilder
+    {
+        return $this->getOrCreateQueryBuilder()
+            ->select('recipe', 'partial category.{id,category_name}')
+            ->join('recipe.category', 'category')
+            ->orderBy('recipe.rating', 'DESC');
     }
 
     /**

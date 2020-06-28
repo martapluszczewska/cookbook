@@ -132,4 +132,13 @@ class RecipeService
     {
         $this->recipeRepository->delete($recipe);
     }
+
+    /**
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function queryAllByRating()
+    {
+        return $this->recipeRepository->queryAllByRating();
+    }
+
 }

@@ -145,12 +145,13 @@
                         {% endif %}
                     </dl>
                     <div class="row">
-                        <p class="pl-3"><i class="fa fa-star mr-2"></i>{{ 'label_rating'|trans }}: {{ rating|round(2, 'floor') }}</p>
+{#                        <p class="pl-3"><i class="fa fa-star mr-2"></i>{{ 'label_rating'|trans }}: {{ rating|round(2, 'floor') }}</p>#}
+                        <p class="pl-3"><i class="fa fa-star mr-2"></i>{{ 'label_rating'|trans }}: {{ recipe.rating }}</p>
                     </div>
                     {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-                        <a href="{{ url('rating_new', {id: recipe.id}) }}" title="{{ 'title.rating_new'|trans }}" class="btn btn-info rounded-0 my-2">
-                            {{ 'title.rating_new'|trans }}
-                        </a>
+{#                        <a href="{{ url('rating_new', {id: recipe.id}) }}" title="{{ 'title.rating_new'|trans }}" class="btn btn-info rounded-0 my-2">#}
+{#                            {{ 'title.rating_new'|trans }}#}
+{#                        </a>#}
                     {% endif %}
                     <a href="{{ url('recipe_index') }}" title="{{ 'action_back_to_list'|trans }}" class="btn btn-dark rounded-0 my-2">
                         {{ 'action_back_to_list'|trans }}
