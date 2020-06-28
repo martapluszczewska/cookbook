@@ -10,6 +10,7 @@ use App\Entity\Recipe;
 use App\Form\DataTransformer\IngredientsDataTransformer;
 use App\Form\DataTransformer\TagsDataTransformer;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -117,6 +118,16 @@ class RecipeType extends AbstractType
 
         $builder->get('ingredients')->addModelTransformer(
             $this->ingredientsDataTransformer
+        );
+
+        $builder->add(
+            'image',
+            FileType::class,
+            [
+                'label' => 'label.image',
+                'mapped' => false,
+                'required' => false,
+            ]
         );
     }
 

@@ -164,6 +164,11 @@ class Recipe
     private $rating;
 
     /**
+     * @ORM\Column(type="string", length=512, nullable=true)
+     */
+    private $image;
+
+    /**
      * Recipe constructor.
      */
     public function __construct()
@@ -332,7 +337,6 @@ class Recipe
     {
         if ($this->comments->contains($comment)) {
             $this->comments->removeElement($comment);
-            // set the owning side to null (unless already changed)
             if ($comment->getRecipe() === $this) {
                 $comment->setRecipe(null);
             }
@@ -430,15 +434,43 @@ class Recipe
         $this->description = $description;
     }
 
+    /**
+     * Getter for rating.
+     *
+     * @return float|null
+     */
     public function getRating(): ?float
     {
         return $this->rating;
     }
 
-    public function setRating(?float $rating): self
+    /**
+     * Setter for rating.
+     *
+     * @param float|null $rating
+     */
+    public function setRating(?float $rating): void
     {
         $this->rating = $rating;
+    }
 
-        return $this;
+    /**
+     * Getter for image.
+     *
+     * @return string|null
+     */
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    /**
+     * Setter for image.
+     *
+     * @param string|null $image
+     */
+    public function setImage(?string $image): void
+    {
+        $this->image = $image;
     }
 }

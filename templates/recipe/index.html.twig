@@ -60,11 +60,9 @@
                     {% for recipe in pagination.items %}
 
                     <div class="col-sm-6 col-lg-4">
+
                         <a href="{{ url('recipe_show', {id: recipe.id}) }}" title="{{ 'action_view'|trans }}" class="text-reset text-decoration-none">
                             <div class="feature-box-1 recipe">
-                                <div class="d-flex justify-content-center align-items-center rounded mb-3" style="height: 150px; background-color: rgb(233, 236, 239);">
-                                    <span style="color: rgb(166, 168, 170); font: bold 8pt Arial;">640x150</span>
-                                </div>
                                 <div class="feature-content">
                                     <h5>{{ recipe.title }}</h5>
                                     <p><i class="fa fa-star mr-2"></i>{{ 'label_rating'|trans }}: {{ recipe.rating|round(2, 'floor') }}</p>

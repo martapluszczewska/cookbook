@@ -40,7 +40,7 @@ class IngredientsDataTransformer implements DataTransformerInterface
      */
     public function transform($ingredients): string
     {
-        if (null == $ingredients) {
+        if (null === $ingredients) {
             return '';
         }
 
@@ -72,7 +72,7 @@ class IngredientsDataTransformer implements DataTransformerInterface
         foreach ($ingredientTitles as $ingredientTitle) {
             if ('' !== trim($ingredientTitle)) {
                 $ingredient = $this->repository->findOneByTitle(strtolower($ingredientTitle));
-                if (null == $ingredient) {
+                if (null === $ingredient) {
                     $ingredient = new Ingredient();
                     $ingredient->setTitle($ingredientTitle);
                     $this->repository->save($ingredient);

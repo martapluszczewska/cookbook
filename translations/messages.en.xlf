@@ -338,6 +338,10 @@
                <source>message.access_denied</source>
                <target>Access denied!</target>
             </trans-unit>
+            <trans-unit id="label.image">
+               <source>label.image</source>
+               <target>Image</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

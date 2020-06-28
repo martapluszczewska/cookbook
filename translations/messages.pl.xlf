@@ -342,6 +342,10 @@
                <source>message.access_denied</source>
                <target>Brak dostępu!</target>
             </trans-unit>
+            <trans-unit id="label.image">
+               <source>label.image</source>
+               <target>Obraz</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

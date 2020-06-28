@@ -10,13 +10,13 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Class ErrorController
- *
- * @package App\Controller
  */
 class ErrorController extends Controller
 {
     /**
      * Access Denied action.
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
      *
      * @Route(
      *     "/access_denied",

@@ -16,7 +16,7 @@
                             <li class="nav-item"><a class="nav-link px-2 active" href="{{ url('user_show', {id: user.id}) }}"><i class="fa fa-fw fa-user mr-1"></i><span>Podgląd</span></a></li>
                             {% if is_granted('USER', user) %}
                                 <li class="nav-item"><a class="nav-link px-2" href="{{ url('user_edit', {id: user.userdata.id}) }}"><i class="fa fa-fw fa-cog mr-1"></i><span>{{ 'label_change_data'|trans }}</span></a></li>
-                                <li class="nav-item"><a class="nav-link px-2" href="{{ url('user_edit_pass', {id: user.id}) }}"><i class="fa fa-fw fa fa-shield mr-1"></i><span>Zmiana hasła</span></a></li>
+                                <li class="nav-item"><a class="nav-link px-2" href="{{ url('user_edit_pass', {id: user.id}) }}"><i class="fa fa-fw fa fa-shield mr-1"></i><span>{{ 'label_change_pass'|trans }}</span></a></li>
                             {% endif %}
                         </ul>
                     </div>
@@ -29,25 +29,12 @@
                             <div class="card-body">
                                 <div class="e-profile">
                                     <div class="row">
-                                        <div class="col-12 col-sm-auto mb-3">
-                                            <div class="mx-auto" style="width: 140px;">
-                                                <div class="d-flex justify-content-center align-items-center rounded" style="height: 140px; background-color: rgb(233, 236, 239);">
-                                                    <span style="color: rgb(166, 168, 170); font: bold 8pt Arial;">140x140</span>
-                                                </div>
-                                            </div>
-                                        </div>
                                         <div class="col d-flex flex-column flex-sm-row justify-content-between mb-3">
                                             <div class="text-center text-sm-left mb-2 mb-sm-0">
                                                 <h4 class="pt-sm-2 pb-1 mb-0 text-nowrap">
                                                     {{ user.userdata.firstName }} {{ user.userdata.lastName }}
                                                 </h4>
                                                 <p class="mb-0">@{{ user.userdata.nick }}</p>
-                                                <div class="mt-2">
-                                                    <button class="btn btn-info rounded-0" type="button">
-                                                        <i class="fa fa-fw fa-camera"></i>
-                                                        <span>Change Photo</span>
-                                                    </button>
-                                                </div>
                                             </div>
                                         </div>
                                     </div>

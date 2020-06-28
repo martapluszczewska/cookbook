@@ -48,9 +48,12 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row mx-1 mb-3">
-                                    <div class="photo d-flex justify-content-center align-items-center w-100">image</div>
+                                <div class="row mx-1 mb-3 float-left">
+                                    {% if recipe.image != null %}
+                                        <img class="img-fluid mx-auto d-block photo" src="{{ asset('uploads/' ~ recipe.image) }}">
+                                    {% endif %}
                                 </div>
+                                <div class="clearfix"></div>
                                     <h5>{{ 'label_description'|trans }}</h5>
                                 <p>{{ recipe.description }}</p>
                                 <dl class="row pl-3">
@@ -107,7 +110,7 @@
                                         {% if is_granted('IS_AUTHENTICATED_REMEMBERED') and comment_form is defined %}
                                                 {{ form_start(comment_form, { method: 'POST', action: url('recipe_show', {id: recipe.id}) }) }}
                                                 {{ form_widget(comment_form) }}
-                                            <input type="submit" value="{{ 'post'|trans }}" class="btn btn-info rounded-0 mb-3" />
+                                            <input type="submit" value="{{ 'post'|trans }}" class="btn btn-info rounded-0 mb-3 float-right" />
                                             {{ form_end(comment_form) }}
                                         {% else %}
                                             <p><a href="{{ url('app_login') }}">{{ 'message_sign_in'|trans }}</a>, {{ 'desctiption.login_to_comment'|trans }}.</p>
@@ -145,14 +148,8 @@
                         {% endif %}
                     </dl>
                     <div class="row">
-{#                        <p class="pl-3"><i class="fa fa-star mr-2"></i>{{ 'label_rating'|trans }}: {{ rating|round(2, 'floor') }}</p>#}
-                        <p class="pl-3"><i class="fa fa-star mr-2"></i>{{ 'label_rating'|trans }}: {{ recipe.rating }}</p>
+                        <p class="pl-3"><i class="fa fa-star mr-2"></i>{{ 'label_rating'|trans }}: {{ recipe.rating|round(2, 'floor') }}</p>
                     </div>
-                    {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-{#                        <a href="{{ url('rating_new', {id: recipe.id}) }}" title="{{ 'title.rating_new'|trans }}" class="btn btn-info rounded-0 my-2">#}
-{#                            {{ 'title.rating_new'|trans }}#}
-{#                        </a>#}
-                    {% endif %}
                     <a href="{{ url('recipe_index') }}" title="{{ 'action_back_to_list'|trans }}" class="btn btn-dark rounded-0 my-2">
                         {{ 'action_back_to_list'|trans }}
                     </a>

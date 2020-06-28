@@ -16,6 +16,7 @@ use App\Service\RecipeService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -95,9 +96,8 @@ class RecipeController extends AbstractController
     /**
      * IndexByRating action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request   HTTP request
-     *
-     * @param \Knp\Component\Pager\PaginatorInterface   $paginator Paginator
+     * @param Recipe                                    $recipe
+     * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -106,14 +106,14 @@ class RecipeController extends AbstractController
      *     name="recipe_index_rating",
      * )
      */
-    public function index_rating(Recipe $recipe, Request $request): Response
+    public function indexRating(Recipe $recipe, Request $request): Response
     {
         $pagination = $this->recipeService->queryAllByRating();
 
         return $this->render(
             'recipe/index.html.twig',
             [
-                'pagination' => $pagination
+                'pagination' => $pagination,
             ]
         );
     }
@@ -168,7 +168,6 @@ class RecipeController extends AbstractController
             'recipe/show.html.twig',
             [
                 'recipe' => $recipe,
-            //                'comments' => $this->commentService->findForRecipe($id),
                 'comment_form' => is_null($form) ? null : $form->createView(),
             ]
         );
@@ -199,6 +198,20 @@ class RecipeController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $file = $request->files->get('recipe')['image'];
+            /**
+             * @var UploadedFile $file
+             */
+            if ($file) {
+                $uploadsDirectory = $this->getParameter('uploads_directory');
+
+                $filename = md5(uniqid()).'.'.$file->guessClientExtension();
+                $file->move(
+                    $uploadsDirectory,
+                    $filename
+                );
+                $recipe->setImage($filename);
+            }
             $this->recipeService->save($recipe);
             $this->addFlash('success', 'message_created_successfully');
 
@@ -237,10 +250,24 @@ class RecipeController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            /**
+             * @var UploadedFile $file
+             */
+            $file = $request->files->get('recipe')['image'];
+            if ($file) {
+                $uploadsDirectory = $this->getParameter('uploads_directory');
+
+                $filename = md5(uniqid()).'.'.$file->guessClientExtension();
+                $file->move(
+                    $uploadsDirectory,
+                    $filename
+                );
+                $recipe->setImage($filename);
+            }
             $this->recipeService->save($recipe);
             $this->addFlash('success', 'message_updated_successfully');
 
-            return $this->redirectToRoute('recipe_index');
+            return $this->redirectToRoute('recipe_show', ['id' => $recipe->getId()]);
         }
 
         return $this->render(

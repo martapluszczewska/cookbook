@@ -122,7 +122,6 @@ class UserController extends AbstractController
      */
     public function userEditPass(Request $request, User $user, int $id, UserPasswordEncoderInterface $encoder): Response
     {
-//        $user = $this->userService->find($id);
         $form = $this->createForm(UserPassType::class, $user, ['method' => 'PUT']);
         $form->handleRequest($request);
 
